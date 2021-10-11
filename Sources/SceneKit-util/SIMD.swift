@@ -7,11 +7,10 @@
 
 import SceneKit
 
-
 extension CGPoint: SIMD
 {
     public typealias MaskStorage = SIMD2<CGFloat.NativeType>.MaskStorage
-    public subscript(index: Int) -> SCNFloat
+    public subscript(index: Int) -> CGFloat
     {
         get {
             switch index {
@@ -30,6 +29,10 @@ extension CGPoint: SIMD
     }
     public var scalarCount: Int { 2 }
     public typealias Scalar = CGFloat
+}
+
+extension SCNFloat {
+    public typealias NativeType = Double
 }
 
 extension SCNVector3: SIMD

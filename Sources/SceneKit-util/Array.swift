@@ -91,7 +91,7 @@ extension Array where Element: FixedWidthInteger {
                                 primitiveType: SCNGeometryPrimitiveType) -> SCNGeometryElement
     {
         
-        if #available(macOS 11.0, *) {
+        if #available(macOS 11.0, iOS 14.0, *) {
             return SCNGeometryElement(buffer: elementBuffer,
                                       primitiveType: primitiveType,
                                       primitiveCount: Array<Element>.count(of: elementBuffer).primitiveCount(of: primitiveType),

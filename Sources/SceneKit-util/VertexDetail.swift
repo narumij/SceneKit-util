@@ -60,63 +60,96 @@ extension SIMD where Scalar: BytesPerComponent {
 
 // MARK: -
 
+@available(iOS 8.0, *)
 public protocol VertexScalar {
-    static var VertexFormatArray: [MTLVertexFormat] { get }
+    static var vertexFormatArray: [MTLVertexFormat] { get }
 }
 
-extension Float
+@available(iOS 14.0, *)
+extension Float16
 {
-    public static var VertexFormatArray: [MTLVertexFormat]
+    public static var vertexFormat: MTLVertexFormat { .half }
+
+    public static var vertexFormatArray: [MTLVertexFormat]
     {
-        [ .float, .float2, .float3, .float4 ]
+        [ .half2, .half3, .half4 ]
+    }
+}
+
+extension Float32
+{
+    @available(iOS 11.0, *)
+    public static var vertexFormat: MTLVertexFormat { .float }
+
+    public static var vertexFormatArray: [MTLVertexFormat]
+    {
+        [ .float2, .float3, .float4 ]
     }
 }
 
 extension Int32
 {
-    public static var VertexFormatArray: [MTLVertexFormat]
+    @available(iOS 11.0, *)
+    public static var vertexFormat: MTLVertexFormat { .int }
+
+    public static var vertexFormatArray: [MTLVertexFormat]
     {
-        [ .int, .int2, .int2, .int4 ]
+        [ .int2, .int2, .int4 ]
     }
 }
 
 extension Int16
 {
-    public static var VertexFormatArray: [MTLVertexFormat]
+    @available(iOS 11.0, *)
+    public static var vertexFormat: MTLVertexFormat { .short }
+
+    public static var vertexFormatArray: [MTLVertexFormat]
     {
-        [ .short, .short2, .short3, .short4 ]
+            [ .short2, .short3, .short4 ]
     }
 }
 
 extension Int8
 {
-    public static var VertexFormatArray: [MTLVertexFormat]
+    @available(iOS 11.0, *)
+    public static var vertexFormat: MTLVertexFormat { .char }
+
+    public static var vertexFormatArray: [MTLVertexFormat]
     {
-        [ .char, .char2, .char3, .char4 ]
+        [ .char2, .char3, .char4 ]
     }
 }
 
 extension UInt32
 {
-    public static var VertexFormatArray: [MTLVertexFormat]
+    @available(iOS 11.0, *)
+    public static var vertexFormat: MTLVertexFormat { .uint }
+
+    public static var vertexFormatArray: [MTLVertexFormat]
     {
-        [ .ushort, .ushort2, .ushort3, .ushort4 ]
+        [ .uint, .uint2, .uint3, .uint4 ]
     }
 }
 
 extension UInt16
 {
-    public static var VertexFormatArray: [MTLVertexFormat]
+    @available(iOS 11.0, *)
+    public static var vertexFormat: MTLVertexFormat { .ushort }
+
+    public static var vertexFormatArray: [MTLVertexFormat]
     {
-        [ .ushort, .ushort2, .ushort3, .ushort4 ]
+        [ .ushort2, .ushort3, .ushort4 ]
     }
 }
 
 extension UInt8
 {
-    public static var VertexFormatArray: [MTLVertexFormat]
+    @available(iOS 11.0, *)
+    public static var vertexFormat: MTLVertexFormat { .uchar }
+    
+    public static var vertexFormatArray: [MTLVertexFormat]
     {
-        [ .ushort, .ushort2, .ushort3, .ushort4 ]
+        [ .uchar2, .uchar3, .uchar4 ]
     }
 }
 
@@ -127,12 +160,12 @@ public protocol VertexFormat: SCNVertexDetail {
     static var vertexFormat: MTLVertexFormat { get }
 }
 
-extension Numeric where Self: VertexScalar {
-    public static var vertexFormat: MTLVertexFormat { VertexFormatArray[0] }
-}
+//extension Numeric where Self: VertexScalar {
+//    public static var vertexFormat: MTLVertexFormat { vertexFormatArray[0] }
+//}
 
 extension SIMD where Scalar: VertexScalar {
-    public static var vertexFormat: MTLVertexFormat { Scalar.VertexFormatArray[scalarCount - 1] }
+    public static var vertexFormat: MTLVertexFormat { Scalar.vertexFormatArray[scalarCount] }
 }
 
 
@@ -141,16 +174,35 @@ extension SIMD where Scalar: VertexScalar {
 public typealias SCNVertexDetail = UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr
 public typealias MTLVertexDetail = VertexFormat & SCNVertexDetail
 
-extension Int8:    SCNVertexDetail & MTLVertexDetail & VertexScalar { }
-extension Int16:   SCNVertexDetail & MTLVertexDetail & VertexScalar { }
-extension Int32:   SCNVertexDetail & MTLVertexDetail & VertexScalar { }
-extension UInt8:   SCNVertexDetail & MTLVertexDetail & VertexScalar { }
-extension UInt16:  SCNVertexDetail & MTLVertexDetail & VertexScalar { }
-extension UInt32:  SCNVertexDetail & MTLVertexDetail & VertexScalar { }
-extension Float32: SCNVertexDetail & MTLVertexDetail & VertexScalar { }
+extension Int8:    SCNVertexDetail & VertexScalar { }
+extension Int16:   SCNVertexDetail & VertexScalar { }
+extension Int32:   SCNVertexDetail & VertexScalar { }
+extension UInt8:   SCNVertexDetail & VertexScalar { }
+extension UInt16:  SCNVertexDetail & VertexScalar { }
+extension UInt32:  SCNVertexDetail & VertexScalar { }
+extension Float32: SCNVertexDetail & VertexScalar { }
 extension Int:     SCNVertexDetail { }
 extension Float64: SCNVertexDetail { }
 extension CGFloat: SCNVertexDetail { }
+
+@available(iOS 11.0, *)
+extension Int8:    VertexFormat { }
+@available(iOS 11.0, *)
+extension Int16:   VertexFormat { }
+@available(iOS 11.0, *)
+extension UInt8:   VertexFormat { }
+@available(iOS 11.0, *)
+extension UInt16:  VertexFormat { }
+@available(iOS 11.0, *)
+extension UInt32:  VertexFormat { }
+@available(iOS 11.0, *)
+extension Int32:   VertexFormat { }
+@available(iOS 11.0, *)
+extension Float32: VertexFormat { }
+
+@available(iOS 14.0, *)
+extension Float16: SCNVertexDetail & MTLVertexDetail & VertexScalar { }
+
 
 extension SIMD2: SCNVertexDetail & MTLVertexDetail where Scalar: SCNVertexDetail & VertexScalar { }
 extension SIMD3: SCNVertexDetail & MTLVertexDetail where Scalar: SCNVertexDetail & VertexScalar { }
