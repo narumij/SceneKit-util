@@ -66,6 +66,7 @@ public protocol VertexScalar {
 }
 
 @available(iOS 14.0, *)
+@available(macOS 11.0, *)
 extension Float16
 {
     public static var vertexFormat: MTLVertexFormat { .half }
@@ -201,6 +202,7 @@ extension Int32:   VertexFormat { }
 extension Float32: VertexFormat { }
 
 @available(iOS 14.0, *)
+@available(macOS 11.0, *)
 extension Float16: SCNVertexDetail & MTLVertexDetail & VertexScalar { }
 
 
