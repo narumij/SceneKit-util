@@ -8,7 +8,7 @@
 import SceneKit
 import Metal
 
-struct Internal<VertexType>: KeyPathProperty {
+public struct Internal<VertexType>: KeyPathProperty {
     let keyPath: PartialKeyPath<VertexType>
     var dataOffset: Int! { MemoryLayout<VertexType>.offset(of: keyPath) }
 }
