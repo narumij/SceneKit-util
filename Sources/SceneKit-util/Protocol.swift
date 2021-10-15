@@ -5,7 +5,6 @@
 //  Created by narumij on 2021/10/14.
 //
 
-//import Metal
 import SceneKit
 
 public protocol UsesFloatComponents {
@@ -61,18 +60,18 @@ public protocol Interleave
     typealias AttrbKeyPath = PartialKeyPath<Self>
 }
 
-public protocol MetalInterleave____
+public protocol MetalInterleaveTraits
 {
     static var metalAttributeDetails: [MetalAttributeDetail] { get }
 }
 
-public extension MetalInterleave____ where Self: Interleave {
+public extension MetalInterleaveTraits where Self: Interleave {
     static var metalAttributeDetails: [MetalAttributeDetail] {
         attributeDetails as! [MetalAttributeDetail]
     }
 }
 
-public protocol MetalInterleave where Self: Interleave & MetalInterleave____ { }
+public protocol MetalInterleave where Self: Interleave & MetalInterleaveTraits { }
 
 
 // MARK: -
