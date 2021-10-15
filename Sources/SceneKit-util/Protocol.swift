@@ -66,7 +66,7 @@ public protocol MetalInterleave
     static var metalAttributeDetails: [MetalAttributeDetail] { get }
 }
 
-extension MetalInterleave where Self: Interleave {
+public extension MetalInterleave where Self: Interleave {
     static var metalAttributeDetails: [MetalAttributeDetail] {
         attributeDetails as! [MetalAttributeDetail]
     }
