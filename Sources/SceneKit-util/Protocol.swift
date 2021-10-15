@@ -61,16 +61,19 @@ public protocol Interleave
     typealias AttrbKeyPath = PartialKeyPath<Self>
 }
 
-public protocol MetalInterleave
+public protocol MetalInterleave____
 {
     static var metalAttributeDetails: [MetalAttributeDetail] { get }
 }
 
-public extension MetalInterleave where Self: Interleave {
+public extension MetalInterleave____ where Self: Interleave {
     static var metalAttributeDetails: [MetalAttributeDetail] {
         attributeDetails as! [MetalAttributeDetail]
     }
 }
+
+public protocol MetalInterleave where Self: Interleave & MetalInterleave____ { }
+
 
 // MARK: -
 
