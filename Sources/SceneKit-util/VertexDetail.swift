@@ -10,10 +10,6 @@ import Metal
 
 // MARK: -
 
-public protocol UsesFloatComponents {
-    static var usesFloatComponents: Bool { get }
-}
-
 extension FixedWidthInteger {
     public static var usesFloatComponents: Bool { false }
 }
@@ -27,10 +23,6 @@ extension SIMD where Scalar: UsesFloatComponents {
 }
 
 // MARK: -
-
-public protocol BytesPerComponent {
-    static var bytesPerComponent: Int { get }
-}
 
 extension FixedWidthInteger {
     public static var bytesPerComponent: Int { MemoryLayout<Self>.size }
@@ -46,10 +38,6 @@ extension SIMD where Scalar: BytesPerComponent {
 
 // MARK: -
 
-public protocol ComponentsPerVecotr {
-    static var componentsPerVector: Int { get }
-}
-
 extension Numeric {
     public static var componentsPerVector: Int { 1 }
 }
@@ -59,11 +47,6 @@ extension SIMD where Scalar: BytesPerComponent {
 }
 
 // MARK: -
-
-@available(iOS 8.0, *)
-public protocol VertexScalar {
-    static var vertexFormatArray: [MTLVertexFormat] { get }
-}
 
 @available(iOS 14.0, *)
 @available(macOS 11.0, *)
@@ -157,10 +140,6 @@ extension UInt8
 
 // MARK: -
 
-public protocol VertexFormat: SCNVertexDetail {
-    static var vertexFormat: MTLVertexFormat { get }
-}
-
 //extension Numeric where Self: VertexScalar {
 //    public static var vertexFormat: MTLVertexFormat { vertexFormatArray[0] }
 //}
@@ -172,19 +151,17 @@ extension SIMD where Scalar: VertexScalar {
 
 // MARK: -
 
-public typealias SCNVertexDetail = UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr
-public typealias MTLVertexDetail = VertexFormat & SCNVertexDetail
 
-extension Int8:    SCNVertexDetail & VertexScalar { }
-extension Int16:   SCNVertexDetail & VertexScalar { }
-extension Int32:   SCNVertexDetail & VertexScalar { }
-extension UInt8:   SCNVertexDetail & VertexScalar { }
-extension UInt16:  SCNVertexDetail & VertexScalar { }
-extension UInt32:  SCNVertexDetail & VertexScalar { }
-extension Float32: SCNVertexDetail & VertexScalar { }
-extension Int:     SCNVertexDetail { }
-extension Float64: SCNVertexDetail { }
-extension CGFloat: SCNVertexDetail { }
+extension Int8:    VertexDetail & VertexScalar { }
+extension Int16:   VertexDetail & VertexScalar { }
+extension Int32:   VertexDetail & VertexScalar { }
+extension UInt8:   VertexDetail & VertexScalar { }
+extension UInt16:  VertexDetail & VertexScalar { }
+extension UInt32:  VertexDetail & VertexScalar { }
+extension Float32: VertexDetail & VertexScalar { }
+extension Int:     VertexDetail { }
+extension Float64: VertexDetail { }
+extension CGFloat: VertexDetail { }
 
 @available(iOS 11.0, *)
 extension Int8:    VertexFormat { }
@@ -203,14 +180,13 @@ extension Float32: VertexFormat { }
 
 @available(iOS 14.0, *)
 @available(macOS 11.0, *)
-extension Float16: SCNVertexDetail & MTLVertexDetail & VertexScalar { }
+extension Float16: VertexDetail & MetalVertexDetail & VertexScalar { }
 
+extension SIMD2: VertexDetail & MetalVertexDetail where Scalar: VertexDetail & VertexScalar { }
+extension SIMD3: VertexDetail & MetalVertexDetail where Scalar: VertexDetail & VertexScalar { }
+extension SIMD4: VertexDetail & MetalVertexDetail where Scalar: VertexDetail & VertexScalar { }
 
-extension SIMD2: SCNVertexDetail & MTLVertexDetail where Scalar: SCNVertexDetail & VertexScalar { }
-extension SIMD3: SCNVertexDetail & MTLVertexDetail where Scalar: SCNVertexDetail & VertexScalar { }
-extension SIMD4: SCNVertexDetail & MTLVertexDetail where Scalar: SCNVertexDetail & VertexScalar { }
-
-extension CGPoint:    SCNVertexDetail { }
-extension SCNVector3: SCNVertexDetail { }
-extension SCNVector4: SCNVertexDetail { }
+extension CGPoint:    VertexDetail { }
+extension SCNVector3: VertexDetail { }
+extension SCNVector4: VertexDetail { }
 

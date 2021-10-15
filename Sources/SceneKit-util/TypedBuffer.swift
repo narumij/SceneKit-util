@@ -26,7 +26,7 @@ extension TypedBuffer where Element: FixedWidthInteger
     
 }
 
-extension TypedBuffer where Element: MTLVertexDetail
+extension TypedBuffer where Element: MetalVertexDetail
 {
     func geometrySource(semantic s: SCNGeometrySource.Semantic) -> SCNGeometrySource
     {

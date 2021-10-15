@@ -2,15 +2,63 @@ import XCTest
 @testable import SceneKit_util
 import SceneKit
 
-struct MyVertex: Position, Texcoord {
+struct MyVertex {
     let position: SIMD2<Float>
     let texcoord: SIMD2<Float>
 }
 
-extension MyVertex {
-    static var positionKeyPath: PartialKeyPath<Self> { \Self.position }
-    static var texcoordKeyPath: PartialKeyPath<Self> { \Self.texcoord }
+enum Semantics {
+    case position
+    case normal
+    case texcoord
+    case color
 }
+
+extension MyVertex {
+        
+    static func semantic<T>(_ v: T,_ keyPath: PartialKeyPath<Self>) -> some AttributeFormat where T: VertexDetail {
+        AttribFormat<T>(keyPath)
+    }
+
+}
+
+extension MyVertex: Position, Texcoord {
+    static var positionKeyPath: AttrbKeyPath { \Self.position }
+    static var texcoordKeyPath: AttrbKeyPath { \Self.texcoord }
+}
+
+extension MyVertex: VertexInfo {
+    
+    static var vertexKeyPath: [ SCNGeometrySource.Semantic: PartialKeyPath<MyVertex> ] = [ .vertex: \Self.position, .texcoord: \Self.texcoord ]
+    
+    
+//    static var vertexInfo: InterleaveInfo { [ .vertex: \.position, .texcoord: \.texcoord ] }
+    static let hogehoge //: [ SCNGeometrySource.Semantic: (,PartialKeyPath<MyVertex>) ]
+    : [SCNGeometrySource.Semantic: AttributeFormat]
+    = [  .vertex: semantic( SIMD2<Float>.zero, \Self.position ),
+         .texcoord: AttribFormat<SIMD2<Float>>(\Self.texcoord) ]
+    
+    static let b: [SCNGeometrySource.Semantic:MTLVertexFormat]
+    = [.vertex: .float, .texcoord: .float3]
+    
+//    static let test: A = D<Int>(\Self.position)
+}
+
+
+protocol VertexInfo {
+    typealias InterleaveInfo = [ SCNGeometrySource.Semantic: PartialKeyPath<Self> ]
+    static var vertexInfo: InterleaveInfo { get }
+    var position: SIMD2<Float> { get }
+    var texcoord: SIMD2<Float> { get }
+}
+
+extension VertexInfo {
+    static var vertexInfo: InterleaveInfo { [ .vertex: \.position, .texcoord: \.texcoord ] }
+    static func hoge() -> Int {
+        MemoryLayout.offset(of: vertexInfo[.texcoord]!)!
+    }
+}
+
 
 struct HalfVertex: Interleave {
     let position: SIMD3<UInt16>
@@ -18,11 +66,21 @@ struct HalfVertex: Interleave {
 }
 
 extension HalfVertex {
-    static var semanticDetails: [SemanticDetail] {
-        [ (.vertex, .half3, true, 3, 2, MemoryLayout.offset(of: \Self.position)! ),
-          (.normal, .half3, true, 3, 2, MemoryLayout.offset(of: \Self.normal)! ) ]
+    static var attributeDetails: [AttributeDetail] {
+        [ (.vertex, .half3, AttribFormat<SIMD3<Float16>>(\Self.position) ),
+          (.normal, .half3, AttribFormat<SIMD3<Float16>>(\Self.position) ) ]
     }
 }
+
+//struct HalfVertex2: Position, Normal {
+//    let position: SIMD3<UInt16>
+//    let normal: SIMD3<UInt16>
+//}
+
+//extension HalfVertex2 {
+//    static var positionKeyPath: PartialKeyPath<Self> { \Self.position }
+//    static var normalKeyPath: PartialKeyPath<Self> { \Self.normal }
+//}
 
 extension Array where Element == MyVertex {
     init(_ seed:[((Float,Float),(Float,Float))] ) {
@@ -33,6 +91,7 @@ extension Array where Element == MyVertex {
 //extension Array where Element: VectorDetail {
 //    static var usesFloatComponentsT: Bool { __usesFloatComponents(Element.self) }
 //}
+
 
 final class SceneKit_utilTests: XCTestCase {
     func testExample() throws {
@@ -55,6 +114,8 @@ final class SceneKit_utilTests: XCTestCase {
 //            vertices0.geometry(with: device, primitiveType: .triangleStrip),
 //            vertices0.geometry(with: device, primitiveType: .line),
 //            vertices0.geometry(with: device, primitiveType: .point)]
+        
+//        XCTAssertEqual( KeyPathGet.hoge(MyVertex(position: .zero, texcoord: .zero)), 4)
         
     }
     
