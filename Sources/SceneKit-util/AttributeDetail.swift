@@ -27,6 +27,12 @@ struct AttribFormat<AttributeType>: MoreAttribFormat where AttributeType: Vertex
     var bytesPerComponent: Int { AttributeType.bytesPerComponent }
 }
 
+extension AttribFormat where AttributeType: MetalVertexDetail {
+    var vertexFormat: MTLVertexFormat {
+        AttributeType.vertexFormat
+    }
+}
+
 public typealias AttributeDetail = (semantic: SCNGeometrySource.Semantic,
                                    vertexFormat: MTLVertexFormat,
                                     attributeFormat: AttributeFormat)
