@@ -13,7 +13,7 @@ struct Internal<VertexType>: KeyPathProperty {
     var dataOffset: Int! { MemoryLayout<VertexType>.offset(of: keyPath) }
 }
 
-struct AttribFormat<AttributeType>: MoreAttribFormat where AttributeType: VertexDetail {
+public struct AttribFormat<AttributeType>: MoreAttribFormat where AttributeType: VertexDetail {
     
     init<T>(_ keyPath: PartialKeyPath<T>) {
         keyPathOffset = Internal<T>(keyPath: keyPath)
@@ -21,14 +21,14 @@ struct AttribFormat<AttributeType>: MoreAttribFormat where AttributeType: Vertex
 
     let keyPathOffset: KeyPathProperty
     
-    var dataOffset: Int! { keyPathOffset.dataOffset }
-    var usesFloatComponents: Bool { AttributeType.usesFloatComponents }
-    var componentsPerVector: Int { AttributeType.componentsPerVector }
-    var bytesPerComponent: Int { AttributeType.bytesPerComponent }
+    public var dataOffset: Int! { keyPathOffset.dataOffset }
+    public var usesFloatComponents: Bool { AttributeType.usesFloatComponents }
+    public var componentsPerVector: Int { AttributeType.componentsPerVector }
+    public var bytesPerComponent: Int { AttributeType.bytesPerComponent }
 }
 
 extension AttribFormat: MetalAttributeFormat where AttributeType: MetalVertexDetail {
-    var vertexFormat: MTLVertexFormat { AttributeType.vertexFormat }
+    public var vertexFormat: MTLVertexFormat { AttributeType.vertexFormat }
 }
 
 public typealias AttributeDetail = (semantic: SCNGeometrySource.Semantic,
