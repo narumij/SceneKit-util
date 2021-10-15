@@ -145,7 +145,7 @@ extension UInt8
 //}
 
 extension SIMD where Scalar: VertexScalar {
-    public static var vertexFormat: MTLVertexFormat { Scalar.vertexFormatArray[scalarCount] }
+    public static var vertexFormat: MTLVertexFormat { Scalar.vertexFormatArray[scalarCount - 2] }
 }
 
 
