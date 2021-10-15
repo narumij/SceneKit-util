@@ -13,7 +13,7 @@ public struct Internal<VertexType>: KeyPathProperty {
     var dataOffset: Int! { MemoryLayout<VertexType>.offset(of: keyPath) }
 }
 
-public struct AttribFormat<AttributeType>: MoreAttribFormat where AttributeType: VertexDetail {
+public struct Attrb<AttributeType>: MoreAttribFormat where AttributeType: VertexDetail {
     
     public init<T>(_ keyPath: PartialKeyPath<T>) {
         keyPathOffset = Internal<T>(keyPath: keyPath)
@@ -27,7 +27,7 @@ public struct AttribFormat<AttributeType>: MoreAttribFormat where AttributeType:
     public var bytesPerComponent: Int { AttributeType.bytesPerComponent }
 }
 
-extension AttribFormat: MetalAttributeFormat where AttributeType: MetalVertexDetail {
+extension Attrb: MetalAttributeFormat where AttributeType: MetalVertexDetail {
     public var vertexFormat: MTLVertexFormat { AttributeType.vertexFormat }
 }
 
@@ -48,7 +48,7 @@ extension Position
          positionFormat)
     }
     static var positionFormat: AttributeFormat {
-        AttribFormat<PositionType>(positionKeyPath)
+        Attrb<PositionType>(positionKeyPath)
     }
 }
 
@@ -61,7 +61,7 @@ extension Texcoord
          texcoordFormat)
     }
     static var texcoordFormat: AttributeFormat {
-        AttribFormat<TexcoordType>(texcoordKeyPath)
+        Attrb<TexcoordType>(texcoordKeyPath)
     }
 }
 
@@ -74,7 +74,7 @@ extension Normal
          normalFormat )
     }
     static var normalFormat: AttributeFormat {
-        AttribFormat<NormalType>(normalKeyPath)
+        Attrb<NormalType>(normalKeyPath)
     }
 }
 
