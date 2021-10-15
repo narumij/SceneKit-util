@@ -45,9 +45,14 @@ public protocol AttributeFormat {
     var bytesPerComponent: Int { get }
 }
 
+public protocol MetalAttributeFormat: AttributeFormat {
+    var vertexFormat: MTLVertexFormat { get }
+}
+
 public protocol MoreAttribFormat: AttributeFormat {
     associatedtype AttributeType
 }
+
 
 // MARK: -
 
@@ -55,6 +60,11 @@ public protocol Interleave
 {
     static var attributeDetails: [AttributeDetail] { get }
     typealias AttrbKeyPath = PartialKeyPath<Self>
+}
+
+public protocol MetalInterleave
+{
+    static var metalAttributeDetails: [MetalAttributeDetail] { get }
 }
 
 public protocol Position: Interleave

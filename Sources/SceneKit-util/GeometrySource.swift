@@ -17,7 +17,7 @@ public struct Interleaved<T: Interleave>
         source = aa
     }
     
-    public init(buffer b: MTLBuffer) {
+    public init(buffer b: MTLBuffer) where T: MetalInterleave {
         source = TypedBuffer<T>(b)
     }
     
@@ -89,7 +89,7 @@ fileprivate protocol InterleaveSource
     func geometryElement(primitiveType type: PrimitiveType) -> SCNGeometryElement
 }
 
-extension TypedBuffer: InterleaveSource where Element: Interleave { }
+extension TypedBuffer: InterleaveSource where Element: MetalInterleave { }
 extension Array: InterleaveSource where Element: Interleave { }
 
 

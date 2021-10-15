@@ -27,23 +27,15 @@ struct AttribFormat<AttributeType>: MoreAttribFormat where AttributeType: Vertex
     var bytesPerComponent: Int { AttributeType.bytesPerComponent }
 }
 
-extension AttribFormat where AttributeType: MetalVertexDetail {
-    var vertexFormat: MTLVertexFormat {
-        AttributeType.vertexFormat
-    }
+extension AttribFormat: MetalAttributeFormat where AttributeType: MetalVertexDetail {
+    var vertexFormat: MTLVertexFormat { AttributeType.vertexFormat }
 }
 
 public typealias AttributeDetail = (semantic: SCNGeometrySource.Semantic,
-                                   vertexFormat: MTLVertexFormat,
                                     attributeFormat: AttributeFormat)
 
-// MARK: -
-
-extension PartialKeyPath {
-    var offset: Int? {
-        MemoryLayout.offset(of: self)
-    }
-}
+public typealias MetalAttributeDetail = (semantic: SCNGeometrySource.Semantic,
+                                         attributeFormat: MetalAttributeFormat)
 
 // MARK: -
 
@@ -52,7 +44,7 @@ extension Position
     static var positionInfo: AttributeDetail
     {
         (.vertex,
-         PositionType.vertexFormat,
+//         PositionType.vertexFormat,
          positionFormat)
     }
     static var positionFormat: AttributeFormat {
@@ -65,7 +57,7 @@ extension Texcoord
     static var texcoordInfo: AttributeDetail
     {
         (.texcoord,
-         TexcoordType.vertexFormat,
+//         TexcoordType.vertexFormat,
          texcoordFormat)
     }
     static var texcoordFormat: AttributeFormat {
@@ -78,7 +70,7 @@ extension Normal
     static var normalInfo: AttributeDetail
     {
         (.normal,
-         NormalType.vertexFormat,
+//         NormalType.vertexFormat,
          normalFormat )
     }
     static var normalFormat: AttributeFormat {

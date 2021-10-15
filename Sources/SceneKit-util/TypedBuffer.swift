@@ -35,7 +35,7 @@ extension TypedBuffer where Element: MetalVertexDetail
     
 }
 
-extension TypedBuffer where Element: Interleave
+extension TypedBuffer where Element: MetalInterleave
 {
     func geometrySources() -> [SCNGeometrySource]
     {

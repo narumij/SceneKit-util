@@ -125,19 +125,20 @@ extension Array where Element: Interleave {
                               dataStride:          stride )
         }
     }
+}
 
+extension Array where Element: MetalInterleave {
     static func geometrySources(of vertexBuffer: MTLBuffer ) -> [SCNGeometrySource]
     {
-        Element.attributeDetails.map {
+        Element.metalAttributeDetails.map {
             SCNGeometrySource(buffer:       vertexBuffer,
-                              vertexFormat: $0.vertexFormat,
+                              vertexFormat: $0.attributeFormat.vertexFormat,
                               semantic:     $0.semantic,
                               vertexCount:  count(of: vertexBuffer),
                               dataOffset:   $0.attributeFormat.dataOffset,
                               dataStride:   stride )
         }
     }
-
 }
 
 // MARK: - SCNVector, SIMD2, SIMD3, SIMD4
