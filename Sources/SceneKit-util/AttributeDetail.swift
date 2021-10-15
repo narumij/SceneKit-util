@@ -43,39 +43,39 @@ extension Position
 {
     static var positionInfo: AttributeDetail
     {
-        (.vertex,
-//         PositionType.vertexFormat,
-         positionFormat)
+        ( .vertex, positionFormat )
     }
+    
     static var positionFormat: AttributeFormat {
         Attrb<PositionType>(positionKeyPath)
     }
+    
 }
 
 extension Texcoord
 {
     static var texcoordInfo: AttributeDetail
     {
-        (.texcoord,
-//         TexcoordType.vertexFormat,
-         texcoordFormat)
+        ( .texcoord, texcoordFormat )
     }
+    
     static var texcoordFormat: AttributeFormat {
         Attrb<TexcoordType>(texcoordKeyPath)
     }
+    
 }
 
 extension Normal
 {
     static var normalInfo: AttributeDetail
     {
-        (.normal,
-//         NormalType.vertexFormat,
-         normalFormat )
+        ( .normal, normalFormat )
     }
+    
     static var normalFormat: AttributeFormat {
         Attrb<NormalType>(normalKeyPath)
     }
+    
 }
 
 
