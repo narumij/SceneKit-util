@@ -66,36 +66,53 @@ public protocol MetalInterleave
     static var metalAttributeDetails: [MetalAttributeDetail] { get }
 }
 
+extension MetalInterleave where Self: Interleave {
+    static var metalAttributeDetails: [MetalAttributeDetail] {
+        attributeDetails as! [MetalAttributeDetail]
+    }
+}
+
 // MARK: -
 
 public protocol Position: Interleave
 {
-    associatedtype PositionType: MetalVertexDetail, SIMD
+    associatedtype PositionType: VertexDetail, SIMD
     var position: PositionType { get }
     static var positionKeyPath: AttrbKeyPath { get }
 }
 
+extension Position where Self.PositionType: MetalVertexDetail {
+}
+
 public protocol Normal: Interleave
 {
-    associatedtype NormalType: MetalVertexDetail, SIMD
+    associatedtype NormalType: VertexDetail, SIMD
     var normal: NormalType { get }
     static var normalKeyPath: AttrbKeyPath { get }
 }
 
+extension Normal where Self.NormalType: MetalVertexDetail {
+}
+
 public protocol Texcoord: Interleave
 {
-    associatedtype TexcoordType: MetalVertexDetail
+    associatedtype TexcoordType: VertexDetail
     var texcoord: TexcoordType { get }
     static var texcoordKeyPath: AttrbKeyPath { get }
 }
 
+extension Texcoord where Self.TexcoordType: MetalVertexDetail {
+}
+
 public protocol Color: Interleave
 {
-    associatedtype ColorType: MetalVertexDetail
+    associatedtype ColorType: VertexDetail
     var color: ColorType { get }
     static var colorKeyPath: AttrbKeyPath { get }
 }
 
+extension Color where Self.ColorType: MetalVertexDetail {
+}
 
 
 
