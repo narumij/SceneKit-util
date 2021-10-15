@@ -53,7 +53,6 @@ public protocol MoreAttribFormat: AttributeFormat {
     associatedtype AttributeType
 }
 
-
 // MARK: -
 
 public protocol Interleave
@@ -66,6 +65,8 @@ public protocol MetalInterleave
 {
     static var metalAttributeDetails: [MetalAttributeDetail] { get }
 }
+
+// MARK: -
 
 public protocol Position: Interleave
 {
