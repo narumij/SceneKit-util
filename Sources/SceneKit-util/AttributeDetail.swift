@@ -15,7 +15,7 @@ struct Internal<VertexType>: KeyPathProperty {
 
 public struct AttribFormat<AttributeType>: MoreAttribFormat where AttributeType: VertexDetail {
     
-    init<T>(_ keyPath: PartialKeyPath<T>) {
+    public init<T>(_ keyPath: PartialKeyPath<T>) {
         keyPathOffset = Internal<T>(keyPath: keyPath)
     }
 
