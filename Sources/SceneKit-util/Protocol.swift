@@ -102,28 +102,28 @@ public protocol FullInterleave: BasicInterleave & MetalInterleave { }
 
 // MARK: -
 
-public protocol Position: BasicInterleave
+public protocol Position: CommonTraits
 {
     associatedtype PositionType: BasicVertexDetail, SIMD
     var position: PositionType { get }
     static var positionKeyPath: AttrbKeyPath { get }
 }
 
-public protocol Normal
+public protocol Normal: CommonTraits
 {
     associatedtype NormalType: BasicVertexDetail, SIMD
     var normal: NormalType { get }
-    static var normalKeyPath: PartialKeyPath<Self> { get }
+    static var normalKeyPath: AttrbKeyPath { get }
 }
 
-public protocol Texcoord
+public protocol Texcoord: CommonTraits
 {
     associatedtype TexcoordType: BasicVertexDetail
     var texcoord: TexcoordType { get }
-    static var texcoordKeyPath: PartialKeyPath<Self> { get }
+    static var texcoordKeyPath: AttrbKeyPath { get }
 }
 
-public protocol Color
+public protocol Color: CommonTraits
 {
     associatedtype ColorType: BasicVertexDetail
     var color: ColorType { get }

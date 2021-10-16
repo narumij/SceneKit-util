@@ -94,9 +94,44 @@ extension Array where Element == MyVertex {
     }
 }
 
-struct vertex_t2d_v3d: Position, Texcoord, BasicInterleave {
-    var position: SCNVector3
-    var texcoord: CGPoint
+struct vertex_t2f_v3f: Position, Texcoord {
+    var position: SIMD3<Float> // Full
+    var texcoord: SIMD2<Float> // Full
+}
+
+extension vertex_t2f_v3f {
+    static let positionKeyPath: AttrbKeyPath = \Self.position
+    static let texcoordKeyPath: AttrbKeyPath = \Self.texcoord
+}
+
+#if false
+// 混在はMetalInterleaveにできなくしたい。これは、できない。
+struct vertex_t2f_v2d: Position, Texcoord, MetalInterleave {
+    var position: CGPoint // Full
+    var texcoord: SIMD2<Float> // Basic
+}
+
+extension vertex_t2f_v2d {
+    static let positionKeyPath: AttrbKeyPath = \Self.position
+    static let texcoordKeyPath: AttrbKeyPath = \Self.texcoord
+}
+#endif
+
+#if true
+// 混在はMetalInterleaveにできなくしたいが、ポイントが適用されていると、できてしまう。
+struct vertex_t2d_v3f: Position, Texcoord, MetalInterleave {
+    var position: SIMD3<Float> // Full
+    var texcoord: CGPoint // Basic
+}
+extension vertex_t2d_v3f {
+    static let positionKeyPath: AttrbKeyPath = \Self.position
+    static let texcoordKeyPath: AttrbKeyPath = \Self.texcoord
+}
+#endif
+
+struct vertex_t2d_v3d: Position, Texcoord {
+    var position: SCNVector3 // Basic
+    var texcoord: CGPoint // Basic
 }
 
 extension vertex_t2d_v3d {

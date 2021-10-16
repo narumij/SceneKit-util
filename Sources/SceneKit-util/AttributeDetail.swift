@@ -73,7 +73,7 @@ extension Attrb: MetalAttrbFormat           where AttributeType: MetalVertexDeta
 
 // MARK: -
 
-extension Position
+extension Position where Self: BasicTraits
 {
     static var positionInfo: AttributeDetail
     {
