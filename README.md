@@ -1,12 +1,10 @@
 # SceneKit-util
 
-## 説明
-
 配列やMTLBufferからSCNGeometryを生成します。
 
-## 使い方
+## Usage
 
-## 準備
+### 準備
 
 ``` Metal
 typedef struct {
@@ -15,34 +13,53 @@ typedef struct {
 } Vertex;
 ```
 
-上記のようなMetalAPIで書かれた頂点構造体がある場合は、プロトコル適合することで利用可能になります。
-
-例1
+case 1
 ``` Swift
-extension Vertex: Position, Texcoord {
+extension Vertex: Position, Texcoord, BasicInterleave
+{
     static var positionKeyPath: PartialKeyPath<Self> { \Self.position }
     static var texcoordKeyPath: PartialKeyPath<Self> { \Self.texcoord }
 }
 ```
 
-セマンティックに用いているメンバ名が、この拡張の想定と一致する場合、該当するセマンティックプロトコルに適合させます。
-適合には、追加でメモリのオフセットを計算するために必要なクラスメンバ変数が必要になります。
-セマンティックは今のところ、Position、Normal、Texcoord、Colorの4種類です。
-
-例2
+case 2
 ``` Swift
-extension Vertex: Semantic {
-    static var semanticDetail: [SemanticDetail] {
-        [ (.vertex, .float3, MemoryLayout.offset(of: \Self.position)! ),
-          (.texcoord, .float3, MemoryLayout.offset(of: \Self.normal)! ) ]
+extension Vertex: MetalInterleave
+{
+    public static var metalAttributeDetails: [MetalAttribute]
+    {
+        [ Attrb<SIMD3<Float>>( .vertex, \Self.position ),
+          Attrb<SIMD3<Float>>( .normal, \Self.normal   ) ]
     }
 }
 ```
 
-半精度浮動小数や、normalizedな整数を用いたい場合、あるいはセマンティック名として想定している名前とは違うメンバ名を構造体に採用したい場合。こちらの方法で利用できます。
+case 3
+``` Swift
+extension Vertex: BasicInterleave, MetalInterleave
+{
+    public static var basicAttributeDetails: [BasicAttribute]
+    {
+        metalAttributeDetails
+    }
+    public static var metalAttributeDetails: [MetalAttribute]
+    {
+        [ MetalAttrb( .vertex, .float3, \Self.position ),
+          MetalAttrb( .normal, .float3, \Self.normal   ) ]
+    }
+}
+```
 
+### Interleaved - BasicInterleve
 
-## 使用例
+例3
+``` Swift
+let array: [Vertex] = ...
+let geometry = Interleaved(array: array)
+                   .geometry(primitiveType: .point)
+```
+
+### Interleaved - MetalInterleave
 
 例1
 ``` Swift
@@ -59,12 +76,7 @@ let geometry = Interleaved<Vertex>(buffer: vertexBuffer)
                    .geometry(elements: [(elementBuffer, .point)])
 ```
 
-例3
-``` Swift
-let array: [Vertex] = ...
-let geometry = Interleaved(array: array)
-                   .geometry(primitiveType: .point)
-```
+### Separated
 
 例4
 ``` Swift
