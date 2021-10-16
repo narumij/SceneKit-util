@@ -26,7 +26,7 @@ public struct BasicAttrb: BasicAttributeFormatTraits {
 
 public struct MetalAttrb: MetalAttributeFormatTraits {
     public let vertexKeyPath: KeyPathProperty
-    public var vertexFormat: MTLVertexFormat
+    public let vertexFormat: MTLVertexFormat
     public var dataOffset: Int! { vertexKeyPath.dataOffset }
 }
 
