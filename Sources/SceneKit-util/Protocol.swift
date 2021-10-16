@@ -98,6 +98,8 @@ public protocol MetalInterleave: Interleave & BasicTraits & MetalTraits
     static var metalAttributeDetails: [MetalAttributeDetail] { get }
 }
 
+public protocol FullInterleave: BasicInterleave & MetalInterleave { }
+
 // MARK: -
 
 public protocol Position: BasicInterleave
