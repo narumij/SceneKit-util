@@ -51,7 +51,7 @@ public typealias MetalVertexDetail = MetalTraits & BasicVertexDetail & VertexFor
 
 // MARK: -
 
-protocol KeyPathProperty {
+public protocol KeyPathProperty {
     var dataOffset: Int! { get }
 }
 
