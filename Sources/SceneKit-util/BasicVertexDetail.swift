@@ -180,7 +180,7 @@ extension Float32: VertexFormat { }
 
 @available(iOS 14.0, *)
 @available(macOS 11.0, *)
-extension Float16: BasicVertexDetail & MetalVertexDetail & VertexScalar { }
+extension Float16: BasicVertexDetail & VertexScalar { }
 
 extension SIMD2: BasicVertexDetail & MetalVertexDetail where Scalar: BasicVertexDetail & VertexScalar { }
 extension SIMD3: BasicVertexDetail & MetalVertexDetail where Scalar: BasicVertexDetail & VertexScalar { }
