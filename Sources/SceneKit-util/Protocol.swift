@@ -65,7 +65,7 @@ public protocol BasicAttributeFormatTraits: AttributeFormatTraits
     var dataOffset: Int! { get }
 }
 
-public protocol MetalAttributeFormatTraits: BasicAttributeFormatTraits & MetalTraits
+public protocol MetalAttributeFormatTraits: AttributeFormatTraits & MetalTraits
 {
     var vertexFormat: MTLVertexFormat { get }
     var dataOffset: Int! { get }
@@ -140,23 +140,18 @@ public protocol MetalInterleave: BasicTraits & MetalTraits
     static var metalAttributeDetails: [MetalAttributeDetail] { get }
 }
 
-//extension MetalInterleave where Self: Interleave
-//{
-//    static var attributeDetails: [AttributeDetail] { metalAttributeDetails }
-//}
-
 // MARK: -
 
 public protocol Position: Interleave
 {
-    associatedtype PositionType: SIMD
+    associatedtype PositionType: BasicVertexDetail, SIMD
     var position: PositionType { get }
     static var positionKeyPath: AttrbKeyPath { get }
 }
 
 public protocol Normal
 {
-    associatedtype NormalType: SIMD
+    associatedtype NormalType: BasicVertexDetail, SIMD
     var normal: NormalType { get }
     static var normalKeyPath: PartialKeyPath<Self> { get }
 }

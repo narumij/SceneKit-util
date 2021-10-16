@@ -7,28 +7,28 @@
 
 import Foundation
 
-extension Interleave where Self: Position, Self.PositionType: BasicVertexDetail
+extension Interleave where Self: Position
 {
     static var attributeDetails: [AttributeDetail] {
         [positionInfo]
     }
 }
 
-public extension Interleave where Self: Position & Normal, Self.PositionType: BasicVertexDetail, Self.NormalType: BasicVertexDetail
+public extension Interleave where Self: Position & Normal
 {
     static var attributeDetails: [AttributeDetail] {
         [positionInfo, normalInfo]
     }
 }
 
-public extension Interleave where Self: Position & Texcoord, Self.PositionType: BasicVertexDetail
+public extension Interleave where Self: Position & Texcoord
 {
     static var attributeDetails: [AttributeDetail] {
         [positionInfo, texcoordInfo]
     }
 }
 
-public extension Interleave where Self: Position & Color, Self.PositionType: BasicVertexDetail
+public extension Interleave where Self: Position & Color
 {
     static var attributeDetails: [AttributeDetail] { [positionInfo, colorInfo] }
 }

@@ -43,22 +43,6 @@ public struct MetalAttrb: MetalAttributeFormatTraits {
     }
     let vertexKeyPath: KeyPathProperty
     public let vertexFormat: MTLVertexFormat
-    public var usesFloatComponents: Bool { true }
-    public var componentsPerVector: Int {
-        switch vertexFormat {
-        case .half2:
-            return 2
-        case .half3:
-            return 3
-        case .half4:
-            return 4
-        case .half:
-            return 1
-        default:
-            fatalError()
-        }
-    }
-    public var bytesPerComponent: Int { 2 }
     public var dataOffset: Int! { vertexKeyPath.dataOffset }
 }
 
@@ -89,7 +73,7 @@ extension Attrb: MetalAttrbFormat where AttributeType: MetalVertexDetail {
 
 // MARK: -
 
-extension Position where PositionType: BasicVertexDetail
+extension Position
 {
     static var positionInfo: AttributeDetail
     {
@@ -105,7 +89,7 @@ extension Position where PositionType: MetalVertexDetail, Self: MetalTraits
     }
 }
 
-extension Normal where NormalType: BasicVertexDetail, Self: BasicTraits
+extension Normal where Self: BasicTraits
 {
     static var normalInfo: AttributeDetail
     {
