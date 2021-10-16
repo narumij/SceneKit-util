@@ -12,13 +12,11 @@ public protocol CommonTraits {
 }
 
 public protocol BasicTraits: CommonTraits {
-    typealias AttributeDetail = (semantic: SCNGeometrySource.Semantic,
-                                 attributeFormat: BasicAttributeFormatTraits)
+    typealias AttributeDetail = BasicAttributeFormatTraits
 }
 
 public protocol MetalTraits: CommonTraits {
-    typealias MetalAttributeDetail = (semantic: SCNGeometrySource.Semantic,
-                                      attributeFormat: MetalAttributeFormatTraits)
+    typealias MetalAttributeDetail = MetalAttributeFormatTraits
 }
 
 
@@ -55,7 +53,10 @@ public protocol KeyPathProperty {
     var dataOffset: Int! { get }
 }
 
-public protocol AttributeFormatTraits { }
+public protocol AttributeFormatTraits {
+    typealias Semantic = SCNGeometrySource.Semantic
+    var semantic: Semantic { get }
+}
 
 public protocol BasicAttributeFormatTraits: AttributeFormatTraits
 {

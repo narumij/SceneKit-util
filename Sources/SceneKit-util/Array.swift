@@ -118,10 +118,10 @@ extension Array where Element: BasicInterleave {
             SCNGeometrySource(data:                data,
                               semantic:            $0.semantic,
                               vectorCount:         count,
-                              usesFloatComponents: $0.attributeFormat.usesFloatComponents,
-                              componentsPerVector: $0.attributeFormat.componentsPerVector,
-                              bytesPerComponent:   $0.attributeFormat.bytesPerComponent,
-                              dataOffset:          $0.attributeFormat.dataOffset,
+                              usesFloatComponents: $0.usesFloatComponents,
+                              componentsPerVector: $0.componentsPerVector,
+                              bytesPerComponent:   $0.bytesPerComponent,
+                              dataOffset:          $0.dataOffset,
                               dataStride:          stride )
         }
     }
@@ -132,10 +132,10 @@ extension Array where Element: MetalInterleave {
     {
         Element.metalAttributeDetails.map {
             SCNGeometrySource(buffer:       vertexBuffer,
-                              vertexFormat: $0.attributeFormat.vertexFormat,
+                              vertexFormat: $0.vertexFormat,
                               semantic:     $0.semantic,
                               vertexCount:  count(of: vertexBuffer),
-                              dataOffset:   $0.attributeFormat.dataOffset,
+                              dataOffset:   $0.dataOffset,
                               dataStride:   stride )
         }
     }

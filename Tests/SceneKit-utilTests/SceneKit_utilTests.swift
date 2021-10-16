@@ -17,7 +17,7 @@ enum Semantics {
 extension MyVertex {
         
     static func semantic<T>(_ v: T,_ keyPath: PartialKeyPath<Self>) -> some AttributeFormatTraits where T: BasicVertexDetail {
-        Attrb<T>(keyPath)
+        Attrb<T>(.vertex, keyPath)
     }
 
 }
@@ -36,7 +36,7 @@ extension MyVertex: VertexInfo {
     static let hogehoge //: [ SCNGeometrySource.Semantic: (,PartialKeyPath<MyVertex>) ]
     : [SCNGeometrySource.Semantic: AttributeFormatTraits]
     = [  .vertex: semantic( SIMD2<Float>.zero, \Self.position ),
-         .texcoord: Attrb<SIMD2<Float>>(\Self.texcoord) ]
+         .texcoord: Attrb<SIMD2<Float>>(.texcoord,\Self.texcoord) ]
     
     static let b: [SCNGeometrySource.Semantic:MTLVertexFormat]
     = [.vertex: .float, .texcoord: .float3]
@@ -67,13 +67,13 @@ struct HalfVertex {
 
 extension HalfVertex: BasicInterleave, MetalInterleave {
     public static var attributeDetails: [AttributeDetail] {
-        [ ( .vertex, BasicAttrb( \Self.position, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2) ),
-          ( .normal, BasicAttrb( \Self.normal,   usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2) ) ]
+        [ ( BasicAttrb( .vertex, \Self.position, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2) ),
+          ( BasicAttrb( .normal, \Self.normal,   usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2) ) ]
     }
     
     public static var metalAttributeDetails: [MetalAttributeDetail] {
-        [ ( .vertex, MetalAttrb( .half3, \Self.position) ),
-          ( .normal, MetalAttrb( .half3, \Self.normal) ) ]
+        [ ( MetalAttrb( .vertex, .half3, \Self.position) ),
+          ( MetalAttrb( .normal, .half3, \Self.normal) ) ]
     }
 }
 
@@ -101,8 +101,8 @@ struct vertex_n3h_v3h {
 
 extension vertex_n3h_v3h: MetalInterleave {
     public static var metalAttributeDetails: [MetalAttributeDetail] {
-        [ ( .vertex, VertexAttrib( .half3, \Self.position ) ),
-          ( .normal, VertexAttrib( .half3, \Self.normal   ) ) ]
+        [ VertexAttrib( .vertex, .half3, \Self.position ),
+          VertexAttrib( .normal, .half3, \Self.normal   ) ]
     }
 }
 
