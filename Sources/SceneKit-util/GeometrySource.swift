@@ -17,7 +17,23 @@ public struct Interleaved<T: Interleave>
         source = aa
     }
     
-    public init(buffer b: MTLBuffer) where T: MetalInterleave {
+    public func geometrySources() -> [SCNGeometrySource]
+    {
+        source.geometrySources()
+    }
+
+    public func geometryElement(primitiveType type: PrimitiveType) -> SCNGeometryElement?
+    {
+        source.geometryElement(primitiveType: type)
+    }
+
+}
+
+public struct MetalInterleaved<T: MetalInterleave>
+{
+    fileprivate let source: InterleaveSource
+    
+    public init(buffer b: MTLBuffer) {
         source = TypedBuffer<T>(b)
     }
     
