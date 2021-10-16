@@ -59,15 +59,16 @@ public protocol AttributeFormatTraits { }
 
 public protocol BasicAttributeFormatTraits: AttributeFormatTraits
 {
-    var dataOffset: Int! { get }
     var usesFloatComponents: Bool { get }
     var componentsPerVector: Int { get }
     var bytesPerComponent: Int { get }
+    var dataOffset: Int! { get }
 }
 
-public protocol MetalAttributeFormatTraits: BasicAttributeFormatTraits & MetalTraits
+public protocol MetalAttributeFormatTraits: AttributeFormatTraits & MetalTraits
 {
     var vertexFormat: MTLVertexFormat { get }
+    var dataOffset: Int! { get }
 }
 
 

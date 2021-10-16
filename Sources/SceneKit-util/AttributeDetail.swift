@@ -10,7 +10,24 @@ import Metal
 
 public struct VertexKeyPath<VertexType>: KeyPathProperty {
     let keyPath: PartialKeyPath<VertexType>
-    var dataOffset: Int! { MemoryLayout<VertexType>.offset(of: keyPath) }
+    var dataOffset: Int!
+    {
+        MemoryLayout<VertexType>.offset(of: keyPath)
+    }
+}
+
+public struct BasicAttrb: BasicAttributeFormatTraits {
+    let vertexKeyPath: KeyPathProperty
+    public var dataOffset: Int! { vertexKeyPath.dataOffset }
+    public let usesFloatComponents: Bool
+    public let componentsPerVector: Int
+    public let bytesPerComponent: Int
+}
+
+public struct MetalAttrb: MetalAttributeFormatTraits {
+    let vertexKeyPath: KeyPathProperty
+    public var vertexFormat: MTLVertexFormat
+    public var dataOffset: Int! { vertexKeyPath.dataOffset }
 }
 
 public struct Attrb<AttributeType>: BasicAttrbFormat where AttributeType: BasicVertexDetail {
@@ -25,6 +42,7 @@ public struct Attrb<AttributeType>: BasicAttrbFormat where AttributeType: BasicV
     public var usesFloatComponents: Bool { AttributeType.usesFloatComponents }
     public var componentsPerVector: Int { AttributeType.componentsPerVector }
     public var bytesPerComponent: Int { AttributeType.bytesPerComponent }
+    
 }
 
 extension Attrb: MetalTraits where AttributeType: MetalVertexDetail {
