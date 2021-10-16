@@ -71,7 +71,6 @@ public protocol MetalAttributeFormatTraits: AttributeFormatTraits & MetalTraits
     var dataOffset: Int! { get }
 }
 
-
 // MARK: -
 
 public protocol AttrbFormat {
