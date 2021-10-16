@@ -89,6 +89,16 @@ extension Array where Element == MyVertex {
     }
 }
 
+struct vertex_t2d_v3d: Position, Texcoord, MetalInterleave {
+    var position: SCNVector3
+    var texcoord: CGPoint
+}
+
+extension vertex_t2d_v3d {
+    static let positionKeyPath: AttrbKeyPath = \Self.position
+    static let texcoordKeyPath: AttrbKeyPath = \Self.texcoord
+}
+
 //extension Array where Element: VectorDetail {
 //    static var usesFloatComponentsT: Bool { __usesFloatComponents(Element.self) }
 //}

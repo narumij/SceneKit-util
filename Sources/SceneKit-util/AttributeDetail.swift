@@ -8,7 +8,7 @@
 import SceneKit
 import Metal
 
-public struct Internal<VertexType>: KeyPathProperty {
+public struct VertexKeyPath<VertexType>: KeyPathProperty {
     let keyPath: PartialKeyPath<VertexType>
     var dataOffset: Int! { MemoryLayout<VertexType>.offset(of: keyPath) }
 }
@@ -16,7 +16,7 @@ public struct Internal<VertexType>: KeyPathProperty {
 public struct Attrb<AttributeType>: MoreAttribFormat where AttributeType: VertexDetail {
     
     public init<T>(_ keyPath: PartialKeyPath<T>) {
-        keyPathOffset = Internal<T>(keyPath: keyPath)
+        keyPathOffset = VertexKeyPath<T>(keyPath: keyPath)
     }
 
     let keyPathOffset: KeyPathProperty
@@ -30,12 +30,6 @@ public struct Attrb<AttributeType>: MoreAttribFormat where AttributeType: Vertex
 extension Attrb: MetalAttributeFormat where AttributeType: MetalVertexDetail {
     public var vertexFormat: MTLVertexFormat { AttributeType.vertexFormat }
 }
-
-public typealias AttributeDetail = (semantic: SCNGeometrySource.Semantic,
-                                    attributeFormat: AttributeFormat)
-
-public typealias MetalAttributeDetail = (semantic: SCNGeometrySource.Semantic,
-                                         attributeFormat: MetalAttributeFormat)
 
 // MARK: -
 
@@ -78,6 +72,19 @@ extension Normal
     
 }
 
+extension Color
+{
+    static var colorInfo: AttributeDetail
+    {
+        ( .normal, colorFormat )
+    }
+    
+    static var colorFormat: AttributeFormat {
+        Attrb<ColorType>(colorKeyPath)
+    }
+    
+}
+
 
 // MARK: -
 
@@ -86,13 +93,39 @@ public extension Interleave where Self: Position
     static var attributeDetails: [AttributeDetail] { [positionInfo] }
 }
 
-public extension Interleave where Self: Position, Self: Normal
+public extension Interleave where Self: Position & Normal
 {
     static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo] }
 }
 
-public extension Interleave where Self: Position, Self: Texcoord
+public extension Interleave where Self: Position & Texcoord
 {
     static var attributeDetails: [AttributeDetail] { [positionInfo, texcoordInfo] }
 }
+
+public extension Interleave where Self: Position & Color
+{
+    static var attributeDetails: [AttributeDetail] { [positionInfo, colorInfo] }
+}
+
+public extension Interleave where Self: Position & Normal & Texcoord
+{
+    static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo, texcoordInfo] }
+}
+
+public extension Interleave where Self: Position & Normal & Color
+{
+    static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo, colorInfo] }
+}
+
+public extension Interleave where Self: Position & Texcoord & Color
+{
+    static var attributeDetails: [AttributeDetail] { [positionInfo, texcoordInfo, colorInfo] }
+}
+
+public extension Interleave where Self: Position & Normal & Texcoord & Color
+{
+    static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo, texcoordInfo, colorInfo] }
+}
+
 
