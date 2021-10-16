@@ -2,9 +2,9 @@
 
 配列やMTLBufferからSCNGeometryを生成します。
 
-## Prepare
+## How to use?
 
-### Vertex
+### Prepare Vertex
 
 ``` Metal
 typedef struct {
@@ -13,9 +13,9 @@ typedef struct {
 } Vertex;
 ```
 
-## Adding Protocol Conformance
+### Adding Protocol Conformance
 
-### case 1
+#### case 1
 
 ``` Swift
 extension Vertex: Position, Texcoord, BasicInterleave
@@ -25,7 +25,7 @@ extension Vertex: Position, Texcoord, BasicInterleave
 }
 ```
 
-### case 2
+#### case 2
 
 ``` Swift
 extension Vertex: MetalInterleave
@@ -38,7 +38,7 @@ extension Vertex: MetalInterleave
 }
 ```
 
-### case 3
+#### case 3
 
 ``` Swift
 extension Vertex: BasicInterleave, MetalInterleave
@@ -55,9 +55,9 @@ extension Vertex: BasicInterleave, MetalInterleave
 }
 ```
 
-## Usage
+### Create SCNGeometry
 
-### Interleaved - BasicInterleave
+#### Interleaved - BasicInterleave
 
 ``` Swift
 let array: [Vertex] = ...
@@ -65,7 +65,7 @@ let geometry: SCNGeometry = Interleaved(array: array)
                                 .geometry(primitiveType: .point)
 ```
 
-### Interleaved - MetalInterleave
+#### Interleaved - MetalInterleave
 
 ``` Swift
 let vertexBuffer: MTLBuffer = ...
@@ -80,7 +80,7 @@ let geometry: SCNGeometry = Interleaved<Vertex>(buffer: vertexBuffer)
                                 .geometry(elements: [(elementBuffer, .point)])
 ```
 
-### Separated
+#### Separated
 
 ``` Swift
 let vertex: [SIMD3<Float>] = ...
@@ -89,8 +89,11 @@ let geometry: SCNGeometry = Seprated(vertex: vertex, normal: normal)
                                 .geometry(primitiveType: .lineStrip)
 ```
 
-## いつかやる
+## TODO
 
 - ヘッダードックの追記
 - ドキュメントの英語化
 - テストコードの追加
+
+## Others
+
