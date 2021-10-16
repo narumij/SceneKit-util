@@ -1,6 +1,6 @@
 # SceneKit-util
 
-配列やMTLBufferからSCNGeometryを生成します。
+Easily assemble SCN Geometry from Array or MTL Buffer.
 
 ## Features
 
@@ -8,7 +8,7 @@
 |-|
 |Open source library written in Swift 5.5|
 |Distribution with Swift Package|
-|少ない行数、少ない引数でジオメトリが得られる|
+|For rapid prototyping with SceneKit|
 
 
 ## How to use?
@@ -116,8 +116,8 @@ let geometry: SCNGeometry = Seprated(vertex: vertex, normal: normal)
 
 ## Requirements
 
-Xcode 13
-macOS11 or newer, iOS14 or newer
+- Xcode 13
+- macOS11 or newer, iOS14 or newer
 
 ## Todo
 
@@ -125,6 +125,4 @@ macOS11 or newer, iOS14 or newer
 - ヘッダードックの追記
 - ドキュメントもっと書く
 - テストコード書く
-
-## Others
 
