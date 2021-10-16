@@ -65,7 +65,7 @@ public protocol BasicAttributeFormatTraits: AttributeFormatTraits
     var dataOffset: Int! { get }
 }
 
-public protocol MetalAttributeFormatTraits: AttributeFormatTraits & MetalTraits
+public protocol MetalAttributeFormatTraits: BasicAttributeFormatTraits & MetalTraits
 {
     var vertexFormat: MTLVertexFormat { get }
     var dataOffset: Int! { get }
