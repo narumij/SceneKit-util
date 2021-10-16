@@ -2,7 +2,7 @@
 
 配列やMTLBufferからSCNGeometryを生成します。
 
-## Preparation
+## Prepare
 
 ### Vertex
 
@@ -15,7 +15,8 @@ typedef struct {
 
 ## Adding Protocol Conformance
 
-case 1
+### case 1
+
 ``` Swift
 extension Vertex: Position, Texcoord, BasicInterleave
 {
@@ -24,7 +25,8 @@ extension Vertex: Position, Texcoord, BasicInterleave
 }
 ```
 
-case 2
+### case 2
+
 ``` Swift
 extension Vertex: MetalInterleave
 {
@@ -36,7 +38,8 @@ extension Vertex: MetalInterleave
 }
 ```
 
-case 3
+### case 3
+
 ``` Swift
 extension Vertex: BasicInterleave, MetalInterleave
 {
