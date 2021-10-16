@@ -68,9 +68,8 @@ extension Attrb: MetalTraits where AttributeType: MetalVertexDetail {
     public var vertexFormat: MTLVertexFormat { AttributeType.vertexFormat }
 }
 
-extension Attrb: MetalAttributeFormatTraits & FullAttributeFormatTraits where AttributeType: MetalVertexDetail { }
+extension Attrb: MetalAttributeFormatTraits where AttributeType: MetalVertexDetail { }
 extension Attrb: MetalAttrbFormat           where AttributeType: MetalVertexDetail { }
-
 
 // MARK: -
 
