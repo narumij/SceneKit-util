@@ -71,6 +71,9 @@ public protocol MetalAttributeFormatTraits: AttributeFormatTraits & MetalTraits
     var dataOffset: Int! { get }
 }
 
+public protocol FullAttributeFormatTraits: BasicAttributeFormatTraits & MetalAttributeFormatTraits { }
+
+
 // MARK: -
 
 public protocol AttrbFormat {
@@ -85,50 +88,6 @@ public protocol MetalAttrbFormat: AttrbFormat & MetalAttributeFormatTraits & Met
 
 
 // MARK: -
-
-public protocol I: BasicTraits
-{
-    static var attributeDetails: [AttributeDetail] { get }
-}
-
-public protocol M: BasicTraits & MetalTraits
-{
-    static var attributeDetails: [AttributeDetail] { get }
-    static var metalAttributeDetails: [MetalAttributeDetail] { get }
-}
-
-extension I where Self: P, Self.PositionType: BasicVertexDetail
-{
-    static var attributeDetails: [AttributeDetail] { [positionInfo] }
-}
-
-extension M where Self: P, Self.PositionType: MetalVertexDetail
-{
-    static var metalAttributeDetails: [MetalAttributeDetail] { [metalPositionInfo] }
-}
-
-protocol P
-{
-    associatedtype PositionType: SIMD
-    var position: PositionType { get }
-    static var positionKeyPath: PartialKeyPath<Self> { get }
-}
-
-extension P where PositionType: BasicVertexDetail, Self: BasicTraits
-{
-    static var positionInfo: AttributeDetail
-    {
-        ( .vertex, Attrb<PositionType>(positionKeyPath) )
-    }
-}
-
-extension P where PositionType: MetalVertexDetail, Self: MetalTraits
-{
-    static var metalPositionInfo: MetalAttributeDetail
-    {
-        ( .vertex, Attrb<PositionType>(positionKeyPath) )
-    }
-}
 
 public protocol Interleave: BasicTraits
 {
@@ -169,8 +128,4 @@ public protocol Color
     var color: ColorType { get }
     static var colorKeyPath: PartialKeyPath<Self> { get }
 }
-
-
-
-
 

@@ -16,6 +16,7 @@ public struct VertexKeyPath<VertexType>: KeyPathProperty {
     }
 }
 
+
 public struct BasicAttrb: BasicAttributeFormatTraits {
     public init<T>(_ keyPath: PartialKeyPath<T>,
                    usesFloatComponents ufc: Bool,
@@ -34,6 +35,7 @@ public struct BasicAttrb: BasicAttributeFormatTraits {
     public var dataOffset: Int! { vertexKeyPath.dataOffset }
 }
 
+
 public struct MetalAttrb: MetalAttributeFormatTraits {
     public init<T>(_ vs: MTLVertexFormat,
                    _ keyPath: PartialKeyPath<T>)
@@ -45,6 +47,7 @@ public struct MetalAttrb: MetalAttributeFormatTraits {
     public let vertexFormat: MTLVertexFormat
     public var dataOffset: Int! { vertexKeyPath.dataOffset }
 }
+
 
 public struct Attrb<AttributeType>: BasicAttrbFormat where AttributeType: BasicVertexDetail {
     
@@ -65,11 +68,9 @@ extension Attrb: MetalTraits where AttributeType: MetalVertexDetail {
     public var vertexFormat: MTLVertexFormat { AttributeType.vertexFormat }
 }
 
-extension Attrb: MetalAttributeFormatTraits where AttributeType: MetalVertexDetail {
-}
+extension Attrb: MetalAttributeFormatTraits & FullAttributeFormatTraits where AttributeType: MetalVertexDetail { }
+extension Attrb: MetalAttrbFormat           where AttributeType: MetalVertexDetail { }
 
-extension Attrb: MetalAttrbFormat where AttributeType: MetalVertexDetail {
-}
 
 // MARK: -
 
