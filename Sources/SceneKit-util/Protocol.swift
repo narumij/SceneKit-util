@@ -141,6 +141,11 @@ public protocol MetalInterleave: BasicTraits & MetalTraits
     static var metalAttributeDetails: [MetalAttributeDetail] { get }
 }
 
+//extension MetalInterleave where Self: Interleave
+//{
+//    static var attributeDetails: [AttributeDetail] { metalAttributeDetails }
+//}
+
 // MARK: -
 
 public protocol Position: Interleave
