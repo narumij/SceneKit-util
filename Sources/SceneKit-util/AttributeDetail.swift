@@ -27,11 +27,11 @@ public struct BasicAttrb: BasicAttributeFormatTraits {
         componentsPerVector = cpv
         bytesPerComponent = bpc
     }
-    public let vertexKeyPath: KeyPathProperty
-    public var dataOffset: Int! { vertexKeyPath.dataOffset }
+    let vertexKeyPath: KeyPathProperty
     public let usesFloatComponents: Bool
     public let componentsPerVector: Int
     public let bytesPerComponent: Int
+    public var dataOffset: Int! { vertexKeyPath.dataOffset }
 }
 
 public struct MetalAttrb: MetalAttributeFormatTraits {
@@ -41,7 +41,7 @@ public struct MetalAttrb: MetalAttributeFormatTraits {
         vertexKeyPath = VertexKeyPath(keyPath: keyPath)
         vertexFormat = vs
     }
-    public let vertexKeyPath: KeyPathProperty
+    let vertexKeyPath: KeyPathProperty
     public let vertexFormat: MTLVertexFormat
     public var dataOffset: Int! { vertexKeyPath.dataOffset }
 }
