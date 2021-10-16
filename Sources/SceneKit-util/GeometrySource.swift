@@ -9,16 +9,18 @@ import SceneKit
 import Metal
 
 /// 構造体化された頂点を利用する
-public struct Interleaved<T: Interleave>
+public struct Interleaved<VertexType: Interleave>
 {
     fileprivate let source: InterleaveSource
     
-    public init(array aa: [T]) where T: BasicInterleave {
+    public init(array aa: [VertexType]) where VertexType: BasicInterleave
+    {
         source = aa
     }
     
-    public init(buffer b: MTLBuffer) where T: MetalInterleave {
-        source = TypedBuffer<T>(b)
+    public init(buffer b: MTLBuffer) where VertexType: MetalInterleave
+    {
+        source = TypedBuffer<VertexType>(b)
     }
     
     public func geometrySources() -> [SCNGeometrySource]
@@ -39,15 +41,18 @@ public struct Separated {
     
     let items: [Semantic]
     
-    public init(items ii: [Semantic]) {
+    public init(items ii: [Semantic])
+    {
         items = ii
     }
     
-    public init(arrays aa: [ArraySemantic]) {
+    public init(arrays aa: [ArraySemantic])
+    {
         self.init(items: aa )
     }
 
-    public init(buffers bb: [BufferSemantic]) {
+    public init(buffers bb: [BufferSemantic])
+    {
         self.init(items: bb )
     }
 
@@ -76,7 +81,7 @@ public protocol GeometrySource
     func geometryElement(primitiveType type: PrimitiveType) -> SCNGeometryElement?
 }
 
-extension Separated: GeometrySource { }
+extension Separated:   GeometrySource { }
 extension Interleaved: GeometrySource { }
 
 
@@ -90,7 +95,7 @@ fileprivate protocol InterleaveSource
 }
 
 extension TypedBuffer: InterleaveSource where Element: MetalInterleave { }
-extension Array: InterleaveSource where Element: BasicInterleave { }
+extension Array:       InterleaveSource where Element: BasicInterleave { }
 
 
 
@@ -99,27 +104,33 @@ extension Array: InterleaveSource where Element: BasicInterleave { }
 extension Separated
 {
     
-    public init<T: BasicVertexDetail>(vertex: [T]) {
+    public init<T: BasicVertexDetail>(vertex: [T])
+    {
         self.init(items: [.vertex(vertex)] )
     }
     
-    public init<T: BasicVertexDetail,S: BasicVertexDetail>(vertex: [T], normal: [S]) {
+    public init<T: BasicVertexDetail,S: BasicVertexDetail>(vertex: [T], normal: [S])
+    {
         self.init(items: [.vertex(vertex), .normal(normal)] )
     }
     
-    public init<T: BasicVertexDetail,S: BasicVertexDetail>(vertex: [T], texcoord: [S]) {
+    public init<T: BasicVertexDetail,S: BasicVertexDetail>(vertex: [T], texcoord: [S])
+    {
         self.init(items: [.vertex(vertex), .texcoord(texcoord)] )
     }
     
-    public init<T: BasicVertexDetail,S: BasicVertexDetail, U: BasicVertexDetail>(vertex: [T], normal: [S], texcoord: [U]) {
+    public init<T: BasicVertexDetail,S: BasicVertexDetail, U: BasicVertexDetail>(vertex: [T], normal: [S], texcoord: [U])
+    {
         self.init(items: [.vertex(vertex), .normal(normal), .texcoord(texcoord)] )
     }
     
-    public init<T: BasicVertexDetail,S: BasicVertexDetail>(vertex: [T], color: [S]) {
+    public init<T: BasicVertexDetail,S: BasicVertexDetail>(vertex: [T], color: [S])
+    {
         self.init(items: [.vertex(vertex), .color(color)] )
     }
     
-    public init<T: BasicVertexDetail,S: BasicVertexDetail, U: BasicVertexDetail>(vertex: [T], normal: [S], color: [U]) {
+    public init<T: BasicVertexDetail,S: BasicVertexDetail, U: BasicVertexDetail>(vertex: [T], normal: [S], color: [U])
+    {
         self.init(items: [.vertex(vertex), .normal(normal), .color(color)] )
     }
     
@@ -149,7 +160,8 @@ extension Separated
         var vertexCount: Int { source.count }
         let semantic: SCNGeometrySource.Semantic
         
-        init(semantic s: SCNGeometrySource.Semantic) {
+        init(semantic s: SCNGeometrySource.Semantic)
+        {
             semantic = s
         }
         
@@ -168,7 +180,8 @@ extension Separated
     {
         
         init(semantic s: SCNGeometrySource.Semantic,
-             array a: [T] ) {
+             array    a: [T] )
+        {
             array = a
             super.init(semantic: s)
         }
@@ -183,7 +196,8 @@ extension Separated
     {
         
         init(semantic s: SCNGeometrySource.Semantic,
-             buffer b: TypedBuffer<T> ) {
+             buffer   b: TypedBuffer<T> )
+        {
             buffer = b
             super.init(semantic: s)
         }

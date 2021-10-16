@@ -8,31 +8,43 @@
 import SceneKit
 
 
-public protocol VertexScalar {
+public protocol VertexScalar
+{
     static var vertexFormatArray: [MTLVertexFormat] { get }
 }
 
 // MARK: -
 
-public protocol UsesFloatComponents {
+public protocol UsesFloatComponents
+{
     static var usesFloatComponents: Bool { get }
 }
 
-public protocol BytesPerComponent {
+public protocol BytesPerComponent
+{
     static var bytesPerComponent: Int { get }
 }
 
-public protocol ComponentsPerVecotr {
+public protocol ComponentsPerVecotr
+{
     static var componentsPerVector: Int { get }
 }
 
-public typealias BasicVertexDetail = UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr
+public typealias BasicVertexDetail
+    = UsesFloatComponents
+    & BytesPerComponent
+    & ComponentsPerVecotr
 
-public protocol VertexFormat {
+public protocol VertexFormat
+{
     static var vertexFormat: MTLVertexFormat { get }
 }
 
-public typealias MetalVertexDetail = UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr & VertexFormat
+public typealias MetalVertexDetail
+    = UsesFloatComponents
+    & BytesPerComponent
+    & ComponentsPerVecotr
+    & VertexFormat
 
 
 // MARK: -
@@ -49,15 +61,15 @@ public protocol AttributeFormatTraits {
 public protocol BasicAttribute: AttributeFormatTraits
 {
     var usesFloatComponents: Bool { get }
-    var componentsPerVector: Int { get }
-    var bytesPerComponent: Int { get }
-    var dataOffset: Int! { get }
+    var componentsPerVector: Int  { get }
+    var bytesPerComponent:   Int  { get }
+    var dataOffset:          Int! { get }
 }
 
 public protocol MetalAttribute: AttributeFormatTraits
 {
     var vertexFormat: MTLVertexFormat { get }
-    var dataOffset: Int! { get }
+    var dataOffset:  Int!             { get }
 }
 
 // MARK: -
@@ -102,28 +114,32 @@ public protocol CommonTraits {
 public protocol Position: CommonTraits
 {
     associatedtype PositionType: BasicVertexDetail, SIMD
-    var position: PositionType { get }
+    
+           var position:        PositionType { get }
     static var positionKeyPath: AttrbKeyPath { get }
 }
 
 public protocol Normal: CommonTraits
 {
     associatedtype NormalType: BasicVertexDetail, SIMD
-    var normal: NormalType { get }
+    
+           var normal:        NormalType { get }
     static var normalKeyPath: AttrbKeyPath { get }
 }
 
 public protocol Texcoord: CommonTraits
 {
     associatedtype TexcoordType: BasicVertexDetail
-    var texcoord: TexcoordType { get }
+    
+           var texcoord:        TexcoordType { get }
     static var texcoordKeyPath: AttrbKeyPath { get }
 }
 
 public protocol Color: CommonTraits
 {
     associatedtype ColorType: BasicVertexDetail
-    var color: ColorType { get }
+    
+           var color:        ColorType { get }
     static var colorKeyPath: PartialKeyPath<Self> { get }
 }
 

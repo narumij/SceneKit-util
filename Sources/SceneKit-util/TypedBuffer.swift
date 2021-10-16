@@ -11,7 +11,9 @@ public struct TypedBuffer<T>
 {
     public typealias Element = T
     let buffer: MTLBuffer
-    public init(_ b: MTLBuffer) {
+    
+    public init(_ b: MTLBuffer)
+    {
         buffer = b
     }
     

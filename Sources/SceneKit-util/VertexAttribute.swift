@@ -10,7 +10,9 @@ import Metal
 
 
 public struct VertexKeyPath<VertexType>: KeyPathProperty {
+    
     let keyPath: PartialKeyPath<VertexType>
+    
     public var dataOffset: Int!
     {
         MemoryLayout<VertexType>.offset(of: keyPath)
@@ -20,6 +22,7 @@ public struct VertexKeyPath<VertexType>: KeyPathProperty {
 // MARK: -
 
 public struct BasicAttrb: BasicAttribute {
+    
     public init<T>(_ sm: Semantic,
                    _ keyPath: PartialKeyPath<T>,
                    usesFloatComponents ufc: Bool,
@@ -32,17 +35,19 @@ public struct BasicAttrb: BasicAttribute {
         componentsPerVector = cpv
         bytesPerComponent = bpc
     }
+    
     public let semantic: Semantic
-    let vertexKeyPath: KeyPathProperty
+           let vertexKeyPath: KeyPathProperty
     public let usesFloatComponents: Bool
     public let componentsPerVector: Int
-    public let bytesPerComponent: Int
-    public var dataOffset: Int! { vertexKeyPath.dataOffset }
+    public let bytesPerComponent:   Int
+    public var dataOffset:          Int! { vertexKeyPath.dataOffset }
 }
 
 // MARK: -
 
 public struct MetalAttrb: MetalAttribute {
+    
     public init<T>(_ sm: Semantic,
                    _ vs: MTLVertexFormat,
                    _ keyPath: PartialKeyPath<T>)
@@ -51,31 +56,40 @@ public struct MetalAttrb: MetalAttribute {
         vertexKeyPath = VertexKeyPath(keyPath: keyPath)
         vertexFormat = vs
     }
-    public let semantic: Semantic
-    let vertexKeyPath: KeyPathProperty
-    public let vertexFormat: MTLVertexFormat
-    public var dataOffset: Int! { vertexKeyPath.dataOffset }
+    
+    public let semantic:      Semantic
+           let vertexKeyPath: KeyPathProperty
+    public let vertexFormat:  MTLVertexFormat
+    public var dataOffset:    Int! { vertexKeyPath.dataOffset }
 }
 
 // MARK: -
 
-public struct Attrb<AttributeType>: BasicAttrbFormat where AttributeType: BasicVertexDetail
+public struct Attrb<AttributeType>: BasicAttrbFormat
+    where AttributeType: BasicVertexDetail
 {
-    public init<T>(_ sm: Semantic,_ keyPath: PartialKeyPath<T>) {
+    public init<T>(_ sm: Semantic,
+                   _ keyPath: PartialKeyPath<T>)
+    {
         semantic = sm
         keyPathOffset = VertexKeyPath<T>(keyPath: keyPath)
     }
-    public let semantic: Semantic
-    let keyPathOffset: KeyPathProperty
-    public var dataOffset: Int! { keyPathOffset.dataOffset }
-    public var usesFloatComponents: Bool { AttributeType.usesFloatComponents }
-    public var componentsPerVector: Int { AttributeType.componentsPerVector }
-    public var bytesPerComponent: Int { AttributeType.bytesPerComponent }
     
+    public let semantic:            Semantic
+           let keyPathOffset:       KeyPathProperty
+    public var usesFloatComponents: Bool { AttributeType.usesFloatComponents }
+    public var componentsPerVector: Int  { AttributeType.componentsPerVector }
+    public var bytesPerComponent:   Int  { AttributeType.bytesPerComponent }
+    public var dataOffset:          Int! { keyPathOffset.dataOffset }
 }
 
-extension Attrb: MetalAttribute & MetalAttrbFormat where AttributeType: MetalVertexDetail {
-    public var vertexFormat: MTLVertexFormat { AttributeType.vertexFormat }
+extension Attrb: MetalAttribute & MetalAttrbFormat
+    where AttributeType: MetalVertexDetail
+{
+    public var vertexFormat: MTLVertexFormat
+    {
+        AttributeType.vertexFormat
+    }
 }
 
 // MARK: -
@@ -88,7 +102,8 @@ extension Position
     }
 }
 
-extension Position where PositionType: VertexFormat
+extension Position
+    where PositionType: VertexFormat
 {
     static var metalPositionInfo: MetalAttribute
     {
@@ -107,7 +122,8 @@ extension Normal
     
 }
 
-extension Normal where NormalType: VertexFormat
+extension Normal
+    where NormalType: VertexFormat
 {
     static var metalNormalInfo: MetalAttribute
     {
@@ -125,7 +141,8 @@ extension Texcoord
     }
 }
 
-extension Texcoord where TexcoordType: VertexFormat
+extension Texcoord
+    where TexcoordType: VertexFormat
 {
     static var metalTexcoordInfo: MetalAttribute
     {
@@ -143,7 +160,8 @@ extension Color
     }
 }
 
-extension Color where ColorType: VertexFormat
+extension Color
+    where ColorType: VertexFormat
 {
     static var metalColorInfo: MetalAttribute
     {

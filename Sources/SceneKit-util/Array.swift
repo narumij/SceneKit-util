@@ -13,7 +13,8 @@ import SceneKit
 extension Array {
     
     /// MTLBufferでArrayを初期化する
-    public init(_ buffer: MTLBuffer ) {
+    public init(_ buffer: MTLBuffer )
+    {
         let pointer = buffer.contents().bindMemory( to: Element.self, capacity: buffer.length )
         let bufferPointer = UnsafeBufferPointer<Element>( start: pointer, count: buffer.length / MemoryLayout<Element>.stride )
         self.init( bufferPointer )
@@ -37,9 +38,15 @@ extension Array {
 
 extension Array {
     
-    var stride: Int { Self.stride }
+    var stride: Int
+    {
+        Self.stride
+    }
     
-    static var stride: Int { MemoryLayout<Element>.stride }
+    static var stride: Int
+    {
+        MemoryLayout<Element>.stride
+    }
     
 }
 
@@ -110,7 +117,10 @@ extension Array where Element: FixedWidthInteger {
 
 extension Array where Element: BasicInterleave {
     
-    fileprivate var data: Data { Data( bytes: self, count: MemoryLayout<Element>.size * count ) }
+    fileprivate var data: Data
+    {
+        Data( bytes: self, count: MemoryLayout<Element>.size * count )
+    }
     
     func geometrySources() -> [SCNGeometrySource]
     {
