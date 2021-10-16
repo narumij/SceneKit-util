@@ -17,7 +17,7 @@ public struct VertexKeyPath<VertexType>: KeyPathProperty {
 }
 
 
-public struct BasicAttrb: BasicAttributeFormatTraits {
+public struct BasicAttrb: BasicAttribute {
     public init<T>(_ sm: Semantic,
                    _ keyPath: PartialKeyPath<T>,
                    usesFloatComponents ufc: Bool,
@@ -39,7 +39,7 @@ public struct BasicAttrb: BasicAttributeFormatTraits {
 }
 
 
-public struct MetalAttrb: MetalAttributeFormatTraits {
+public struct MetalAttrb: MetalAttribute {
     public init<T>(_ sm: Semantic,
                    _ vs: MTLVertexFormat,
                    _ keyPath: PartialKeyPath<T>)
@@ -55,13 +55,12 @@ public struct MetalAttrb: MetalAttributeFormatTraits {
 }
 
 
-public struct Attrb<AttributeType>: BasicAttrbFormat where AttributeType: BasicVertexDetail {
-    
+public struct Attrb<AttributeType>: BasicAttrbFormat where AttributeType: BasicVertexDetail
+{
     public init<T>(_ sm: Semantic,_ keyPath: PartialKeyPath<T>) {
         semantic = sm
         keyPathOffset = VertexKeyPath<T>(keyPath: keyPath)
     }
-
     public let semantic: Semantic
     let keyPathOffset: KeyPathProperty
     public var dataOffset: Int! { keyPathOffset.dataOffset }
@@ -71,18 +70,15 @@ public struct Attrb<AttributeType>: BasicAttrbFormat where AttributeType: BasicV
     
 }
 
-extension Attrb: MetalTraits where AttributeType: MetalVertexDetail {
+extension Attrb: MetalAttribute & MetalAttrbFormat where AttributeType: MetalVertexDetail {
     public var vertexFormat: MTLVertexFormat { AttributeType.vertexFormat }
 }
 
-extension Attrb: MetalAttributeFormatTraits where AttributeType: MetalVertexDetail { }
-extension Attrb: MetalAttrbFormat           where AttributeType: MetalVertexDetail { }
-
 // MARK: -
 
-extension Position where Self: BasicTraits
+extension Position
 {
-    static var positionInfo: AttributeDetail
+    static var positionInfo: BasicAttribute
     {
         Attrb<PositionType>(.vertex, positionKeyPath)
     }
@@ -90,59 +86,62 @@ extension Position where Self: BasicTraits
 
 extension Position where PositionType: MetalVertexDetail, Self: MetalInterleave
 {
-    static var metalPositionInfo: MetalAttributeDetail
+    static var metalPositionInfo: MetalAttribute
     {
          Attrb<PositionType>(.vertex, positionKeyPath)
     }
 }
 
-//extension Position where PositionType: MetalVertexDetail, Self: MetalInterleave { }
+// MARK: -
 
-
-extension Normal where Self: BasicTraits
+extension Normal
 {
-    static var normalInfo: AttributeDetail
+    static var normalInfo: BasicAttribute
     {
         Attrb<NormalType>(.normal, normalKeyPath)
     }
     
 }
 
-extension Normal where NormalType: MetalVertexDetail, Self: MetalTraits
+extension Normal where NormalType: MetalVertexDetail
 {
-    static var metalNormalInfo: MetalAttributeDetail
+    static var metalNormalInfo: MetalAttribute
     {
         Attrb<NormalType>(.normal, normalKeyPath)
     }
 }
 
-extension Texcoord where Self: BasicTraits
+// MARK: -
+
+extension Texcoord
 {
-    static var texcoordInfo: AttributeDetail
+    static var texcoordInfo: BasicAttribute
     {
         Attrb<TexcoordType>(.texcoord, texcoordKeyPath)
     }
 }
 
-extension Texcoord where TexcoordType: MetalVertexDetail, Self: MetalTraits
+extension Texcoord where TexcoordType: MetalVertexDetail
 {
-    static var metalTexcoordInfo: MetalAttributeDetail
+    static var metalTexcoordInfo: MetalAttribute
     {
         Attrb<TexcoordType>(.texcoord, texcoordKeyPath)
     }
 }
 
-extension Color where Self: BasicTraits
+// MARK: -
+
+extension Color
 {
-    static var colorInfo: AttributeDetail
+    static var colorInfo: BasicAttribute
     {
         Attrb<ColorType>(.color, colorKeyPath)
     }
 }
 
-extension Color where ColorType: MetalVertexDetail, Self: MetalTraits
+extension Color where ColorType: MetalVertexDetail
 {
-    static var metalColorInfo: MetalAttributeDetail
+    static var metalColorInfo: MetalAttribute
     {
         Attrb<ColorType>(.color, colorKeyPath)
     }

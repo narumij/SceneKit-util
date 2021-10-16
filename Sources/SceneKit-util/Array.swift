@@ -114,7 +114,7 @@ extension Array where Element: BasicInterleave {
     
     func geometrySources() -> [SCNGeometrySource]
     {
-        Element.attributeDetails.map {
+        Element.basicAttributeDetails.map {
             SCNGeometrySource(data:                data,
                               semantic:            $0.semantic,
                               vectorCount:         count,

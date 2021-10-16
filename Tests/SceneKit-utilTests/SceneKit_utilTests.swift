@@ -66,12 +66,12 @@ struct HalfVertex {
 }
 
 extension HalfVertex: BasicInterleave, MetalInterleave {
-    public static var attributeDetails: [AttributeDetail] {
+    public static var basicAttributeDetails: [BasicAttribute] {
         [ ( BasicAttrb( .vertex, \Self.position, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2) ),
           ( BasicAttrb( .normal, \Self.normal,   usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2) ) ]
     }
     
-    public static var metalAttributeDetails: [MetalAttributeDetail] {
+    public static var metalAttributeDetails: [MetalAttribute] {
         [ ( MetalAttrb( .vertex, .half3, \Self.position) ),
           ( MetalAttrb( .normal, .half3, \Self.normal) ) ]
     }
@@ -100,7 +100,7 @@ struct vertex_n3h_v3h {
 }
 
 extension vertex_n3h_v3h: MetalInterleave {
-    public static var metalAttributeDetails: [MetalAttributeDetail] {
+    public static var metalAttributeDetails: [MetalAttribute] {
         [ VertexAttrib( .vertex, .half3, \Self.position ),
           VertexAttrib( .normal, .half3, \Self.normal   ) ]
     }

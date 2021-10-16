@@ -11,13 +11,18 @@ public protocol CommonTraits {
     typealias AttrbKeyPath = PartialKeyPath<Self>
 }
 
-public protocol BasicTraits: CommonTraits {
-    typealias AttributeDetail = BasicAttributeFormatTraits
-}
 
-public protocol MetalTraits: CommonTraits {
-    typealias MetalAttributeDetail = MetalAttributeFormatTraits
-}
+//public protocol BasicTraits: CommonTraits {
+//    typealias AttributeDetail = (semantic: SCNGeometrySource.Semantic,
+//                                 attributeFormat: BasicAttributeFormatTraits)
+//    typealias BasicAttribute = BasicAttributeFormatTraits
+//}
+
+//public protocol MetalTraits: CommonTraits {
+//    typealias MetalAttributeDetail = (semantic: SCNGeometrySource.Semantic,
+//                                      attributeFormat: MetalAttributeFormatTraits)
+//    typealias MetalAttribute = MetalAttributeFormatTraits
+//}
 
 
 // MARK: -
@@ -42,9 +47,9 @@ public protocol VertexScalar {
     static var vertexFormatArray: [MTLVertexFormat] { get }
 }
 
-public typealias BasicVertexDetail = CommonTraits & BasicTraits & UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr
+public typealias BasicVertexDetail = CommonTraits & UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr
 
-public typealias MetalVertexDetail = MetalTraits & BasicVertexDetail & VertexFormat
+public typealias MetalVertexDetail = BasicVertexDetail & VertexFormat
 
 
 // MARK: -
@@ -58,7 +63,7 @@ public protocol AttributeFormatTraits {
     var semantic: Semantic { get }
 }
 
-public protocol BasicAttributeFormatTraits: AttributeFormatTraits
+public protocol BasicAttribute: AttributeFormatTraits
 {
     var usesFloatComponents: Bool { get }
     var componentsPerVector: Int { get }
@@ -66,7 +71,7 @@ public protocol BasicAttributeFormatTraits: AttributeFormatTraits
     var dataOffset: Int! { get }
 }
 
-public protocol MetalAttributeFormatTraits: AttributeFormatTraits & MetalTraits
+public protocol MetalAttribute: AttributeFormatTraits
 {
     var vertexFormat: MTLVertexFormat { get }
     var dataOffset: Int! { get }
@@ -78,10 +83,10 @@ public protocol AttrbFormat {
     associatedtype AttributeType
 }
 
-public protocol BasicAttrbFormat: AttrbFormat & BasicAttributeFormatTraits & BasicTraits
+public protocol BasicAttrbFormat: AttrbFormat & BasicAttribute
     where AttributeType: BasicVertexDetail { }
 
-public protocol MetalAttrbFormat: AttrbFormat & MetalAttributeFormatTraits & MetalTraits
+public protocol MetalAttrbFormat: AttrbFormat & MetalAttribute
     where AttributeType: MetalVertexDetail { }
 
 
@@ -89,14 +94,14 @@ public protocol MetalAttrbFormat: AttrbFormat & MetalAttributeFormatTraits & Met
 
 public protocol Interleave { }
 
-public protocol BasicInterleave: Interleave & BasicTraits
+public protocol BasicInterleave: Interleave
 {
-    static var attributeDetails: [AttributeDetail] { get }
+    static var basicAttributeDetails: [BasicAttribute] { get }
 }
 
-public protocol MetalInterleave: Interleave & BasicTraits & MetalTraits
+public protocol MetalInterleave: Interleave
 {
-    static var metalAttributeDetails: [MetalAttributeDetail] { get }
+    static var metalAttributeDetails: [MetalAttribute] { get }
 }
 
 public protocol FullInterleave: BasicInterleave & MetalInterleave { }

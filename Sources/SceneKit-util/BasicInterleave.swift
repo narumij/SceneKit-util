@@ -9,49 +9,49 @@ import Foundation
 
 extension BasicInterleave where Self: Position
 {
-    static var attributeDetails: [AttributeDetail] {
+    static var basicAttributeDetails: [BasicAttribute] {
         [positionInfo]
     }
 }
 
 public extension BasicInterleave where Self: Position & Normal
 {
-    static var attributeDetails: [AttributeDetail] {
+    static var basicAttributeDetails: [BasicAttribute] {
         [positionInfo, normalInfo]
     }
 }
 
 public extension BasicInterleave where Self: Position & Texcoord
 {
-    static var attributeDetails: [AttributeDetail] {
+    static var basicAttributeDetails: [BasicAttribute] {
         [positionInfo, texcoordInfo]
     }
 }
 
 public extension BasicInterleave where Self: Position & Color
 {
-    static var attributeDetails: [AttributeDetail] { [positionInfo, colorInfo] }
+    static var basicAttributeDetails: [BasicAttribute] { [positionInfo, colorInfo] }
 }
 
 #if false
 public extension BasicInterleave where Self: Position & Normal & Texcoord
 {
-    static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo, texcoordInfo] }
+    static var basicAttributeDetails: [BasicAttribute] { [positionInfo, normalInfo, texcoordInfo] }
 }
 
 public extension BasicInterleave where Self: Position & Normal & Color
 {
-    static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo, colorInfo] }
+    static var basicAttributeDetails: [BasicAttribute] { [positionInfo, normalInfo, colorInfo] }
 }
 
 public extension BasicInterleave where Self: Position & Texcoord & Color
 {
-    static var attributeDetails: [AttributeDetail] { [positionInfo, texcoordInfo, colorInfo] }
+    static var basicAttributeDetails: [BasicAttribute] { [positionInfo, texcoordInfo, colorInfo] }
 }
 
 public extension BasicInterleave where Self: Position & Normal & Texcoord & Color
 {
-    static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo, texcoordInfo, colorInfo] }
+    static var basicAttributeDetails: [BasicAttribute] { [positionInfo, normalInfo, texcoordInfo, colorInfo] }
 }
 #endif
 
