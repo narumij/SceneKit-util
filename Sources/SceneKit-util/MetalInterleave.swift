@@ -34,28 +34,28 @@ public extension MetalInterleave where Self: Position & Color, Self.PositionType
 }
 
 #if false
-public extension Interleave
+public extension BasicInterleave
     where Self: Position & Normal & Texcoord,
           Self.PositionType: MetalVertexDetail, Self.NormalType: MetalVertexDetail, Self.TexcoordType: MetalVertexDetail
 {
     static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo, texcoordInfo] }
 }
 
-public extension Interleave
+public extension BasicInterleave
     where Self: Position & Normal & Color,
           Self.PositionType: MetalVertexDetail, Self.NormalType: MetalVertexDetail, Self.ColorType: MetalVertexDetail
 {
     static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo, colorInfo] }
 }
 
-public extension Interleave
+public extension BasicInterleave
     where Self: Position & Texcoord & Color,
           Self.PositionType: MetalVertexDetail, Self.TexcoordType: MetalVertexDetail, Self.ColorType: MetalVertexDetail
 {
     static var attributeDetails: [AttributeDetail] { [positionInfo, texcoordInfo, colorInfo] }
 }
 
-public extension Interleave
+public extension BasicInterleave
     where Self: Position & Normal & Texcoord & Color,
           Self.PositionType: MetalVertexDetail, Self.NormalType: MetalVertexDetail, Self.TexcoordType: MetalVertexDetail, Self.ColorType: MetalVertexDetail
 {

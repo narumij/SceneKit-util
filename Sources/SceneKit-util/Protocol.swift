@@ -86,19 +86,21 @@ public protocol MetalAttrbFormat: AttrbFormat & MetalAttributeFormatTraits & Met
 
 // MARK: -
 
-public protocol Interleave: BasicTraits
+public protocol Interleave { }
+
+public protocol BasicInterleave: Interleave & BasicTraits
 {
     static var attributeDetails: [AttributeDetail] { get }
 }
 
-public protocol MetalInterleave: BasicTraits & MetalTraits
+public protocol MetalInterleave: Interleave & BasicTraits & MetalTraits
 {
     static var metalAttributeDetails: [MetalAttributeDetail] { get }
 }
 
 // MARK: -
 
-public protocol Position: Interleave
+public protocol Position: BasicInterleave
 {
     associatedtype PositionType: BasicVertexDetail, SIMD
     var position: PositionType { get }

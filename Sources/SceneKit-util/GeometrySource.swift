@@ -13,7 +13,7 @@ public struct Interleaved<T: Interleave>
 {
     fileprivate let source: InterleaveSource
     
-    public init(array aa: [T]) {
+    public init(array aa: [T]) where T: BasicInterleave {
         source = aa
     }
     
@@ -90,7 +90,7 @@ fileprivate protocol InterleaveSource
 }
 
 extension TypedBuffer: InterleaveSource where Element: MetalInterleave { }
-extension Array: InterleaveSource where Element: Interleave { }
+extension Array: InterleaveSource where Element: BasicInterleave { }
 
 
 

@@ -108,7 +108,7 @@ extension Array where Element: FixedWidthInteger {
 }
 
 
-extension Array where Element: Interleave {
+extension Array where Element: BasicInterleave {
     
     fileprivate var data: Data { Data( bytes: self, count: MemoryLayout<Element>.size * count ) }
     
@@ -168,7 +168,7 @@ extension Array where Element: MetalVertexDetail {
     
 }
 
-extension Array where Element: Interleave {
+extension Array where Element: BasicInterleave {
     
     func geometryElement(primitiveType type: PrimitiveType) -> SCNGeometryElement
     {

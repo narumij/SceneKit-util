@@ -65,7 +65,7 @@ struct HalfVertex {
     let normal: SIMD3<Float16>
 }
 
-extension HalfVertex: Interleave, MetalInterleave {
+extension HalfVertex: BasicInterleave, MetalInterleave {
     public static var attributeDetails: [AttributeDetail] {
         [ ( .vertex, BasicAttrb( \Self.position, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2) ),
           ( .normal, BasicAttrb( \Self.normal,   usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2) ) ]
@@ -94,7 +94,7 @@ extension Array where Element == MyVertex {
     }
 }
 
-struct vertex_t2d_v3d: Position, Texcoord, Interleave {
+struct vertex_t2d_v3d: Position, Texcoord, BasicInterleave {
     var position: SCNVector3
     var texcoord: CGPoint
 }
