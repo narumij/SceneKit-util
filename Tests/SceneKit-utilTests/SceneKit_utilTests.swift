@@ -67,13 +67,12 @@ struct HalfVertex {
 
 extension HalfVertex: BasicInterleave, MetalInterleave {
     public static var basicAttributeDetails: [BasicAttribute] {
-        [ ( BasicAttrb( .vertex, \Self.position, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2) ),
-          ( BasicAttrb( .normal, \Self.normal,   usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2) ) ]
+        [ BasicAttrb( .vertex, \Self.position, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2 ),
+          BasicAttrb( .normal, \Self.normal,   usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2 ) ]
     }
-    
     public static var metalAttributeDetails: [MetalAttribute] {
-        [ ( MetalAttrb( .vertex, .half3, \Self.position) ),
-          ( MetalAttrb( .normal, .half3, \Self.normal) ) ]
+        [ MetalAttrb( .vertex, .half3, \Self.position ),
+          MetalAttrb( .normal, .half3, \Self.normal ) ]
     }
 }
 

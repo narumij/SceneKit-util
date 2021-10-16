@@ -11,59 +11,89 @@ extension MetalInterleave {
     typealias VertexAttrib = MetalAttrb
 }
 
-public extension MetalInterleave where Self: Position, Self.PositionType: MetalVertexDetail
+public extension MetalInterleave
+    where Self: Position,
+          PositionType: VertexFormat
 {
-    static var metalAttributeDetails: [MetalAttribute] {
+    static var metalAttributeDetails: [MetalAttribute]
+    {
         [metalPositionInfo]
     }
 }
 
-public extension MetalInterleave where Self: Position & Normal, Self.PositionType: MetalVertexDetail, Self.NormalType: MetalVertexDetail
+public extension MetalInterleave
+    where Self: Position & Normal,
+          PositionType: VertexFormat, NormalType: VertexFormat
 {
-    static var metalAttributeDetails: [MetalAttribute] {
+    static var metalAttributeDetails: [MetalAttribute]
+    {
         [metalPositionInfo, metalNormalInfo]
     }
 }
 
-public extension MetalInterleave where Self: Position & Texcoord, Self.PositionType: MetalVertexDetail, Self.TexcoordType: MetalVertexDetail
+public extension MetalInterleave
+    where Self: Position & Texcoord,
+          PositionType: VertexFormat, TexcoordType: VertexFormat
 {
-    static var metalAttributeDetails: [MetalAttribute] {
+    static var metalAttributeDetails: [MetalAttribute]
+    {
         [metalPositionInfo, metalTexcoordInfo]
     }
 }
 
-public extension MetalInterleave where Self: Position & Color, Self.PositionType: MetalVertexDetail, Self.ColorType: MetalVertexDetail
+public extension MetalInterleave
+    where Self: Position & Color,
+          PositionType: VertexFormat, ColorType: VertexFormat
 {
-    static var metalAttributeDetails: [MetalAttribute] { [metalPositionInfo, metalColorInfo] }
+    static var metalAttributeDetails: [MetalAttribute]
+    {
+        [metalPositionInfo, metalColorInfo]
+    }
 }
 
 #if false
 public extension MetalInterleave
     where Self: Position & Normal & Texcoord,
-          Self.PositionType: MetalVertexDetail, Self.NormalType: MetalVertexDetail, Self.TexcoordType: MetalVertexDetail
+          PositionType: VertexFormat, NormalType: VertexFormat,
+          TexcoordType: VertexFormat
 {
-    static var metalAttributeDetails: [BasicAttribute] { [positionInfo, normalInfo, texcoordInfo] }
+    static var metalAttributeDetails: [BasicAttribute]
+    {
+        [positionInfo, normalInfo, texcoordInfo]
+    }
 }
 
 public extension MetalInterleave
     where Self: Position & Normal & Color,
-          Self.PositionType: MetalVertexDetail, Self.NormalType: MetalVertexDetail, Self.ColorType: MetalVertexDetail
+          PositionType: VertexFormat, NormalType: VertexFormat,
+          ColorType: VertexFormat
 {
-    static var metalAttributeDetails: [BasicAttribute] { [positionInfo, normalInfo, colorInfo] }
+    static var metalAttributeDetails: [BasicAttribute]
+    {
+        [positionInfo, normalInfo, colorInfo]
+    }
 }
 
 public extension MetalInterleave
     where Self: Position & Texcoord & Color,
-          Self.PositionType: MetalVertexDetail, Self.TexcoordType: MetalVertexDetail, Self.ColorType: MetalVertexDetail
+          PositionType: VertexFormat, TexcoordType: VertexFormat,
+          ColorType: VertexFormat
 {
-    static var metalAttributeDetails: [BasicAttribute] { [positionInfo, texcoordInfo, colorInfo] }
+    static var metalAttributeDetails: [BasicAttribute]
+    {
+        [positionInfo, texcoordInfo, colorInfo]
+    }
 }
 
 public extension MetalInterleave
     where Self: Position & Normal & Texcoord & Color,
-          Self.PositionType: MetalVertexDetail, Self.NormalType: MetalVertexDetail, Self.TexcoordType: MetalVertexDetail, Self.ColorType: MetalVertexDetail
+          PositionType: VertexFormat, NormalType: VertexFormat,
+          TexcoordType: VertexFormat, ColorType: VertexFormat
 {
-    static var metalAttributeDetails: [BasicAttribute] { [positionInfo, normalInfo, texcoordInfo, colorInfo] }
+    static var metalAttributeDetails: [BasicAttribute]
+    {
+        [positionInfo, normalInfo, texcoordInfo, colorInfo]
+    }
 }
 #endif
 

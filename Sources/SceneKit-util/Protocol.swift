@@ -7,6 +7,13 @@
 
 import SceneKit
 
+
+public protocol VertexScalar {
+    static var vertexFormatArray: [MTLVertexFormat] { get }
+}
+
+// MARK: -
+
 public protocol UsesFloatComponents {
     static var usesFloatComponents: Bool { get }
 }
@@ -19,17 +26,13 @@ public protocol ComponentsPerVecotr {
     static var componentsPerVector: Int { get }
 }
 
-public protocol VertexFormat: BasicVertexDetail {
+public typealias BasicVertexDetail = UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr
+
+public protocol VertexFormat {
     static var vertexFormat: MTLVertexFormat { get }
 }
 
-public protocol VertexScalar {
-    static var vertexFormatArray: [MTLVertexFormat] { get }
-}
-
-public typealias BasicVertexDetail = UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr
-
-public typealias MetalVertexDetail = BasicVertexDetail & VertexFormat
+public typealias MetalVertexDetail = UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr & VertexFormat
 
 
 // MARK: -

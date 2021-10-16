@@ -88,7 +88,7 @@ extension Position
     }
 }
 
-extension Position where PositionType: MetalVertexDetail, Self: MetalInterleave
+extension Position where PositionType: VertexFormat
 {
     static var metalPositionInfo: MetalAttribute
     {
@@ -107,7 +107,7 @@ extension Normal
     
 }
 
-extension Normal where NormalType: MetalVertexDetail
+extension Normal where NormalType: VertexFormat
 {
     static var metalNormalInfo: MetalAttribute
     {
@@ -125,7 +125,7 @@ extension Texcoord
     }
 }
 
-extension Texcoord where TexcoordType: MetalVertexDetail
+extension Texcoord where TexcoordType: VertexFormat
 {
     static var metalTexcoordInfo: MetalAttribute
     {
@@ -143,7 +143,7 @@ extension Color
     }
 }
 
-extension Color where ColorType: MetalVertexDetail
+extension Color where ColorType: VertexFormat
 {
     static var metalColorInfo: MetalAttribute
     {
