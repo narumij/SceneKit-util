@@ -102,7 +102,7 @@ extension Normal where NormalType: MetalVertexDetail, Self: MetalTraits
 {
     static var metalNormalInfo: MetalAttributeDetail
     {
-        ( .vertex, Attrb<NormalType>(normalKeyPath) )
+        ( .normal, Attrb<NormalType>(normalKeyPath) )
     }
 }
 
@@ -110,7 +110,7 @@ extension Texcoord where Self: BasicTraits
 {
     static var texcoordInfo: AttributeDetail
     {
-        ( .vertex, Attrb<TexcoordType>(texcoordKeyPath) )
+        ( .texcoord, Attrb<TexcoordType>(texcoordKeyPath) )
     }
 }
 
@@ -118,7 +118,7 @@ extension Texcoord where TexcoordType: MetalVertexDetail, Self: MetalTraits
 {
     static var metalTexcoordInfo: MetalAttributeDetail
     {
-        ( .vertex, Attrb<TexcoordType>(texcoordKeyPath) )
+        ( .texcoord, Attrb<TexcoordType>(texcoordKeyPath) )
     }
 }
 
@@ -126,7 +126,7 @@ extension Color where Self: BasicTraits
 {
     static var colorInfo: AttributeDetail
     {
-        ( .normal, Attrb<ColorType>(colorKeyPath) )
+        ( .color, Attrb<ColorType>(colorKeyPath) )
     }
 }
 
@@ -134,7 +134,7 @@ extension Color where ColorType: MetalVertexDetail, Self: MetalTraits
 {
     static var metalColorInfo: MetalAttributeDetail
     {
-        ( .normal, Attrb<ColorType>(colorKeyPath) )
+        ( .color, Attrb<ColorType>(colorKeyPath) )
     }
 }
 
