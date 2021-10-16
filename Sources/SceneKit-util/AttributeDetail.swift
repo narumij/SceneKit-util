@@ -81,13 +81,16 @@ extension Position where Self: BasicTraits
     }
 }
 
-extension Position where PositionType: MetalVertexDetail, Self: MetalTraits
+extension Position where PositionType: MetalVertexDetail, Self: MetalInterleave
 {
     static var metalPositionInfo: MetalAttributeDetail
     {
         ( .vertex, Attrb<PositionType>(positionKeyPath) )
     }
 }
+
+//extension Position where PositionType: MetalVertexDetail, Self: MetalInterleave { }
+
 
 extension Normal where Self: BasicTraits
 {

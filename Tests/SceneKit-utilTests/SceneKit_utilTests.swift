@@ -94,15 +94,30 @@ extension Array where Element == MyVertex {
     }
 }
 
-struct vertex_t2f_v3f: Position, Texcoord {
+struct vertex_n3h_v3h {
+    var position: SIMD3<Float16> // Metal
+    var normal: SIMD3<Float16> // Metal
+}
+
+extension vertex_n3h_v3h: MetalInterleave {
+    public static var metalAttributeDetails: [MetalAttributeDetail] {
+        [ ( .vertex, VertexAttrib( .half3, \Self.position ) ),
+          ( .normal, VertexAttrib( .half3, \Self.normal   ) ) ]
+    }
+}
+
+struct vertex_t2f_v3f {
     var position: SIMD3<Float> // Full
     var texcoord: SIMD2<Float> // Full
 }
 
-extension vertex_t2f_v3f {
+extension vertex_t2f_v3f: BasicInterleave, Position, Texcoord {
     static let positionKeyPath: AttrbKeyPath = \Self.position
     static let texcoordKeyPath: AttrbKeyPath = \Self.texcoord
 }
+
+// let a = vertex_t2f_v3f.attributeDetails
+// let a = vertex_t2f_v3f.metalAttributeDetails
 
 #if false
 // 混在はMetalInterleaveにできなくしたい。これは、できない。
@@ -119,7 +134,7 @@ extension vertex_t2f_v2d {
 
 #if true
 // 混在はMetalInterleaveにできなくしたいが、ポイントが適用されていると、できてしまう。
-struct vertex_t2d_v3f: Position, Texcoord, MetalInterleave {
+struct vertex_t2d_v3f: Position, Texcoord {
     var position: SIMD3<Float> // Full
     var texcoord: CGPoint // Basic
 }

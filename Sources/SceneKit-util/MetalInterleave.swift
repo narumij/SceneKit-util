@@ -7,6 +7,10 @@
 
 import Foundation
 
+extension MetalInterleave {
+    typealias VertexAttrib = MetalAttrb
+}
+
 public extension MetalInterleave where Self: Position, Self.PositionType: MetalVertexDetail
 {
     static var metalAttributeDetails: [MetalAttributeDetail] {
@@ -34,32 +38,32 @@ public extension MetalInterleave where Self: Position & Color, Self.PositionType
 }
 
 #if false
-public extension BasicInterleave
+public extension MetalInterleave
     where Self: Position & Normal & Texcoord,
           Self.PositionType: MetalVertexDetail, Self.NormalType: MetalVertexDetail, Self.TexcoordType: MetalVertexDetail
 {
-    static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo, texcoordInfo] }
+    static var metalAttributeDetails: [AttributeDetail] { [positionInfo, normalInfo, texcoordInfo] }
 }
 
-public extension BasicInterleave
+public extension MetalInterleave
     where Self: Position & Normal & Color,
           Self.PositionType: MetalVertexDetail, Self.NormalType: MetalVertexDetail, Self.ColorType: MetalVertexDetail
 {
-    static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo, colorInfo] }
+    static var metalAttributeDetails: [AttributeDetail] { [positionInfo, normalInfo, colorInfo] }
 }
 
-public extension BasicInterleave
+public extension MetalInterleave
     where Self: Position & Texcoord & Color,
           Self.PositionType: MetalVertexDetail, Self.TexcoordType: MetalVertexDetail, Self.ColorType: MetalVertexDetail
 {
-    static var attributeDetails: [AttributeDetail] { [positionInfo, texcoordInfo, colorInfo] }
+    static var metalAttributeDetails: [AttributeDetail] { [positionInfo, texcoordInfo, colorInfo] }
 }
 
-public extension BasicInterleave
+public extension MetalInterleave
     where Self: Position & Normal & Texcoord & Color,
           Self.PositionType: MetalVertexDetail, Self.NormalType: MetalVertexDetail, Self.TexcoordType: MetalVertexDetail, Self.ColorType: MetalVertexDetail
 {
-    static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo, texcoordInfo, colorInfo] }
+    static var metalAttributeDetails: [AttributeDetail] { [positionInfo, normalInfo, texcoordInfo, colorInfo] }
 }
 #endif
 
