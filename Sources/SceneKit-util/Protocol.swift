@@ -130,8 +130,6 @@ extension P where PositionType: MetalVertexDetail, Self: MetalTraits
     }
 }
 
-
-
 public protocol Interleave: BasicTraits
 {
     static var attributeDetails: [AttributeDetail] { get }
@@ -139,28 +137,21 @@ public protocol Interleave: BasicTraits
 
 public protocol MetalInterleave: BasicTraits & MetalTraits
 {
-    static var attributeDetails: [AttributeDetail] { get }
     static var metalAttributeDetails: [MetalAttributeDetail] { get }
 }
-
-//extension MetalInterleave {
-//    static var attributeDetails: [AttributeDetail] {
-//        metalAttributeDetails as [AttributeDetail]
-//    }
-//}
 
 // MARK: -
 
 public protocol Position: Interleave
 {
-    associatedtype PositionType: BasicVertexDetail, SIMD
+    associatedtype PositionType: SIMD
     var position: PositionType { get }
     static var positionKeyPath: AttrbKeyPath { get }
 }
 
 public protocol Normal
 {
-    associatedtype NormalType: BasicVertexDetail, SIMD
+    associatedtype NormalType: SIMD
     var normal: NormalType { get }
     static var normalKeyPath: PartialKeyPath<Self> { get }
 }
@@ -172,7 +163,7 @@ public protocol Texcoord
     static var texcoordKeyPath: PartialKeyPath<Self> { get }
 }
 
-public protocol Color: Interleave
+public protocol Color
 {
     associatedtype ColorType: BasicVertexDetail
     var color: ColorType { get }
