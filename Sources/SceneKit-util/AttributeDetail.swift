@@ -13,7 +13,7 @@ public struct VertexKeyPath<VertexType>: KeyPathProperty {
     var dataOffset: Int! { MemoryLayout<VertexType>.offset(of: keyPath) }
 }
 
-public struct Attrb<AttributeType>: MoreAttribFormat where AttributeType: VertexDetail {
+public struct Attrb<AttributeType>: BasicAttrbFormat where AttributeType: BasicVertexDetail {
     
     public init<T>(_ keyPath: PartialKeyPath<T>) {
         keyPathOffset = VertexKeyPath<T>(keyPath: keyPath)
@@ -27,9 +27,16 @@ public struct Attrb<AttributeType>: MoreAttribFormat where AttributeType: Vertex
     public var bytesPerComponent: Int { AttributeType.bytesPerComponent }
 }
 
-extension Attrb: MetalAttributeFormat where AttributeType: MetalVertexDetail {
+extension Attrb: MetalTraits where AttributeType: MetalVertexDetail {
     public var vertexFormat: MTLVertexFormat { AttributeType.vertexFormat }
 }
+
+extension Attrb: MetalAttributeFormatTraits where AttributeType: MetalVertexDetail {
+}
+
+extension Attrb: MetalAttrbFormat where AttributeType: MetalVertexDetail {
+}
+
 
 // MARK: -
 
@@ -40,7 +47,7 @@ extension Position
         ( .vertex, positionFormat )
     }
     
-    static var positionFormat: AttributeFormat {
+    static var positionFormat: BasicAttributeFormatTraits {
         Attrb<PositionType>(positionKeyPath)
     }
     
@@ -53,7 +60,7 @@ extension Texcoord
         ( .texcoord, texcoordFormat )
     }
     
-    static var texcoordFormat: AttributeFormat {
+    static var texcoordFormat: BasicAttributeFormatTraits {
         Attrb<TexcoordType>(texcoordKeyPath)
     }
     
@@ -66,7 +73,7 @@ extension Normal
         ( .normal, normalFormat )
     }
     
-    static var normalFormat: AttributeFormat {
+    static var normalFormat: BasicAttributeFormatTraits {
         Attrb<NormalType>(normalKeyPath)
     }
     
@@ -79,7 +86,7 @@ extension Color
         ( .normal, colorFormat )
     }
     
-    static var colorFormat: AttributeFormat {
+    static var colorFormat: BasicAttributeFormatTraits {
         Attrb<ColorType>(colorKeyPath)
     }
     

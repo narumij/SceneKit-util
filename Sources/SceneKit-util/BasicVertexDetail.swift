@@ -152,16 +152,16 @@ extension SIMD where Scalar: VertexScalar {
 // MARK: -
 
 
-extension Int8:    VertexDetail & VertexScalar { }
-extension Int16:   VertexDetail & VertexScalar { }
-extension Int32:   VertexDetail & VertexScalar { }
-extension UInt8:   VertexDetail & VertexScalar { }
-extension UInt16:  VertexDetail & VertexScalar { }
-extension UInt32:  VertexDetail & VertexScalar { }
-extension Float32: VertexDetail & VertexScalar { }
-extension Int:     VertexDetail { }
-extension Float64: VertexDetail { }
-extension CGFloat: VertexDetail { }
+extension Int8:    BasicVertexDetail & VertexScalar { }
+extension Int16:   BasicVertexDetail & VertexScalar { }
+extension Int32:   BasicVertexDetail & VertexScalar { }
+extension UInt8:   BasicVertexDetail & VertexScalar { }
+extension UInt16:  BasicVertexDetail & VertexScalar { }
+extension UInt32:  BasicVertexDetail & VertexScalar { }
+extension Float32: BasicVertexDetail & VertexScalar { }
+extension Int:     BasicVertexDetail { }
+extension Float64: BasicVertexDetail { }
+extension CGFloat: BasicVertexDetail { }
 
 @available(iOS 11.0, *)
 extension Int8:    VertexFormat { }
@@ -180,13 +180,13 @@ extension Float32: VertexFormat { }
 
 @available(iOS 14.0, *)
 @available(macOS 11.0, *)
-extension Float16: VertexDetail & MetalVertexDetail & VertexScalar { }
+extension Float16: BasicVertexDetail & MetalVertexDetail & VertexScalar { }
 
-extension SIMD2: VertexDetail & MetalVertexDetail where Scalar: VertexDetail & VertexScalar { }
-extension SIMD3: VertexDetail & MetalVertexDetail where Scalar: VertexDetail & VertexScalar { }
-extension SIMD4: VertexDetail & MetalVertexDetail where Scalar: VertexDetail & VertexScalar { }
+extension SIMD2: BasicVertexDetail & MetalVertexDetail where Scalar: BasicVertexDetail & VertexScalar { }
+extension SIMD3: BasicVertexDetail & MetalVertexDetail where Scalar: BasicVertexDetail & VertexScalar { }
+extension SIMD4: BasicVertexDetail & MetalVertexDetail where Scalar: BasicVertexDetail & VertexScalar { }
 
-extension CGPoint:    VertexDetail { }
-extension SCNVector3: VertexDetail { }
-extension SCNVector4: VertexDetail { }
+extension CGPoint:    BasicVertexDetail { }
+extension SCNVector3: BasicVertexDetail { }
+extension SCNVector4: BasicVertexDetail { }
 

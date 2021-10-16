@@ -143,7 +143,7 @@ extension Array where Element: MetalInterleave {
 
 // MARK: - SCNVector, SIMD2, SIMD3, SIMD4
 
-extension Array where Element: VertexDetail {
+extension Array where Element: BasicVertexDetail {
     
     func geometrySource(semantic: SCNGeometrySource.Semantic) -> SCNGeometrySource
     {

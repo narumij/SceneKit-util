@@ -99,27 +99,27 @@ extension Array: InterleaveSource where Element: Interleave { }
 extension Separated
 {
     
-    public init<T: VertexDetail>(vertex: [T]) {
+    public init<T: BasicVertexDetail>(vertex: [T]) {
         self.init(items: [.vertex(vertex)] )
     }
     
-    public init<T: VertexDetail,S: VertexDetail>(vertex: [T], normal: [S]) {
+    public init<T: BasicVertexDetail,S: BasicVertexDetail>(vertex: [T], normal: [S]) {
         self.init(items: [.vertex(vertex), .normal(normal)] )
     }
     
-    public init<T: VertexDetail,S: VertexDetail>(vertex: [T], texcoord: [S]) {
+    public init<T: BasicVertexDetail,S: BasicVertexDetail>(vertex: [T], texcoord: [S]) {
         self.init(items: [.vertex(vertex), .texcoord(texcoord)] )
     }
     
-    public init<T: VertexDetail,S: VertexDetail, U: VertexDetail>(vertex: [T], normal: [S], texcoord: [U]) {
+    public init<T: BasicVertexDetail,S: BasicVertexDetail, U: BasicVertexDetail>(vertex: [T], normal: [S], texcoord: [U]) {
         self.init(items: [.vertex(vertex), .normal(normal), .texcoord(texcoord)] )
     }
     
-    public init<T: VertexDetail,S: VertexDetail>(vertex: [T], color: [S]) {
+    public init<T: BasicVertexDetail,S: BasicVertexDetail>(vertex: [T], color: [S]) {
         self.init(items: [.vertex(vertex), .color(color)] )
     }
     
-    public init<T: VertexDetail,S: VertexDetail, U: VertexDetail>(vertex: [T], normal: [S], color: [U]) {
+    public init<T: BasicVertexDetail,S: BasicVertexDetail, U: BasicVertexDetail>(vertex: [T], normal: [S], color: [U]) {
         self.init(items: [.vertex(vertex), .normal(normal), .color(color)] )
     }
     
@@ -134,7 +134,7 @@ fileprivate protocol SemanticSource
     var count: Int { get }
 }
 
-extension Array: SemanticSource where Element: VertexDetail { }
+extension Array: SemanticSource where Element: BasicVertexDetail { }
 
 extension TypedBuffer: SemanticSource where Element: MetalVertexDetail { }
 
@@ -164,7 +164,7 @@ extension Separated
     
     // MARK: -
 
-    public class ArrayItem<T: VertexDetail>: ArraySemantic
+    public class ArrayItem<T: BasicVertexDetail>: ArraySemantic
     {
         
         init(semantic s: SCNGeometrySource.Semantic,
@@ -228,22 +228,22 @@ extension Separated.Semantic
     }
 
     
-    static func vertex<T>(_ array: [T]) -> Separated.ArraySemantic where T: VertexDetail
+    static func vertex<T>(_ array: [T]) -> Separated.ArraySemantic where T: BasicVertexDetail
     {
         Separated.ArrayItem(semantic: .vertex, array: array);
     }
     
-    static func normal<T>(_ array: [T]) -> Separated.ArraySemantic where T: VertexDetail
+    static func normal<T>(_ array: [T]) -> Separated.ArraySemantic where T: BasicVertexDetail
     {
         Separated.ArrayItem(semantic: .normal, array: array);
     }
     
-    static func color<T>(_ array: [T]) -> Separated.ArraySemantic where T: VertexDetail
+    static func color<T>(_ array: [T]) -> Separated.ArraySemantic where T: BasicVertexDetail
     {
         Separated.ArrayItem(semantic: .color, array: array);
     }
     
-    static func texcoord<T>(_ array: [T]) -> Separated.ArraySemantic where T: VertexDetail
+    static func texcoord<T>(_ array: [T]) -> Separated.ArraySemantic where T: BasicVertexDetail
     {
         Separated.ArrayItem(semantic: .texcoord, array: array);
     }
