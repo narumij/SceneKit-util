@@ -2,9 +2,9 @@
 
 配列やMTLBufferからSCNGeometryを生成します。
 
-## Usage
+## Preparation
 
-### 準備
+### Vertex
 
 ``` Metal
 typedef struct {
@@ -12,6 +12,8 @@ typedef struct {
     vector_float3 position;
 } Vertex;
 ```
+
+## Adding Protocol Conformance
 
 case 1
 ``` Swift
@@ -49,6 +51,8 @@ extension Vertex: BasicInterleave, MetalInterleave
     }
 }
 ```
+
+## Usage
 
 ### Interleaved - BasicInterleve
 
