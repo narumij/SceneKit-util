@@ -60,17 +60,17 @@ extension VertexInfo {
 }
 
 
-struct HalfVertex {
-    let position: SIMD3<UInt16>
-    let normal: SIMD3<UInt16>
-}
+//struct HalfVertex {
+//    let position: SIMD3<UInt16>
+//    let normal: SIMD3<UInt16>
+//}
 
-extension HalfVertex: Interleave {
-    static var attributeDetails: [AttributeDetail] {
-        [ (.vertex, Attrb<SIMD3<Float16>>(\Self.position) ),
-          (.normal, Attrb<SIMD3<Float16>>(\Self.position) ) ]
-    }
-}
+//extension HalfVertex: Interleave {
+//    static var attributeDetails: [AttributeDetail] {
+//        [ (.vertex, Attrb<SIMD3<Float16>>(\Self.position) ),
+//          (.normal, Attrb<SIMD3<Float16>>(\Self.position) ) ]
+//    }
+//}
 
 let test_v: SIMD3<Float16> = .zero
 
