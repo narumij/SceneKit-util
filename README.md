@@ -2,9 +2,18 @@
 
 配列やMTLBufferからSCNGeometryを生成します。
 
+## Features
+
+|Features|
+|-|
+|Open source library written in Swift 5.5|
+|Distribution with Swift Package|
+|少ない行数、少ない引数でジオメトリが得られる|
+
+
 ## How to use?
 
-### Prepare Vertex
+### 1. Prepare Vertex
 
 ``` Metal
 typedef struct {
@@ -13,7 +22,7 @@ typedef struct {
 } Vertex;
 ```
 
-### Adding Protocol Conformance
+### 2. Adding Protocol Conformance
 
 #### case 1
 
@@ -30,10 +39,10 @@ extension Vertex: Position, Texcoord, BasicInterleave
 ``` Swift
 extension Vertex: MetalInterleave
 {
-    public static var metalAttributeDetails: [MetalAttribute]
+    public static var metalAttributes: [MetalAttribute]
     {
-        [ Attrb<SIMD3<Float>>( .vertex, \Self.position ),
-          Attrb<SIMD3<Float>>( .normal, \Self.normal   ) ]
+        [ Attrb< SIMD3<Float> >( .vertex, \Self.position ),
+          Attrb< SIMD3<Float> >( .normal, \Self.normal   ) ]
     }
 }
 ```
@@ -43,11 +52,11 @@ extension Vertex: MetalInterleave
 ``` Swift
 extension Vertex: BasicInterleave, MetalInterleave
 {
-    public static var basicAttributeDetails: [BasicAttribute]
+    public static var basicAttributes: [BasicAttribute]
     {
         metalAttributeDetails
     }
-    public static var metalAttributeDetails: [MetalAttribute]
+    public static var metalAttributes: [MetalAttribute]
     {
         [ MetalAttrb( .vertex, .float3, \Self.position ),
           MetalAttrb( .normal, .float3, \Self.normal   ) ]
@@ -55,9 +64,10 @@ extension Vertex: BasicInterleave, MetalInterleave
 }
 ```
 
-### Create SCNGeometry
+### 3. Create SCNGeometry
 
-#### Interleaved - BasicInterleave
+#### Interleaved (1)
+ - BasicInterleave protocol
 
 ``` Swift
 let array: [Vertex] = ...
@@ -65,35 +75,56 @@ let geometry: SCNGeometry = Interleaved(array: array)
                                 .geometry(primitiveType: .point)
 ```
 
-#### Interleaved - MetalInterleave
+``` Swift
+let array: [Vertex] = ...
+let geometry: SCNGeometry = Interleaved(array: array)
+                                .geometry(elements: [(elementBuffer, .line)])
+```
+
+#### Interleaved (2)
+ - MetalInterleave protocol
 
 ``` Swift
 let vertexBuffer: MTLBuffer = ...
 let geometry: SCNGeometry = Interleaved<Vertex>(buffer: vertexBuffer)
-                                .geometry(primitiveType: .point)
+                                .geometry(primitiveType: .triangle)
 ```
 
 ``` Swift
 let elementBuffer: MTLBuffer = ...
 let vertexBuffer: MTLBuffer = ...
 let geometry: SCNGeometry = Interleaved<Vertex>(buffer: vertexBuffer)
-                                .geometry(elements: [(elementBuffer, .point)])
+                                .geometry(elements: [(elementBuffer, .triangleStrip)])
 ```
 
 #### Separated
+- Arrays
 
 ``` Swift
 let vertex: [SIMD3<Float>] = ...
 let normal: [SIMD3<Float>] = ...
 let geometry: SCNGeometry = Seprated(vertex: vertex, normal: normal)
-                                .geometry(primitiveType: .lineStrip)
+                                .geometry(primitiveType: .lineStrip) // !!
 ```
 
-## TODO
+``` Swift
+let vertex: [SIMD3<Float>] = ...
+let normal: [SIMD3<Float>] = ...
+let geometry: SCNGeometry = Seprated(vertex: vertex, normal: normal)
+                                .geometry(elements: [(elementBuffer, .triangle)])
+```
 
+## Requirements
+
+Xcode 13
+macOS11 or newer, iOS14 or newer
+
+## Todo
+
+- 違う名称にする
 - ヘッダードックの追記
-- ドキュメントの英語化
-- テストコードの追加
+- ドキュメントもっと書く
+- テストコード書く
 
 ## Others
 

@@ -10,7 +10,7 @@ import Foundation
 extension BasicInterleave
     where Self: Position
 {
-    static var basicAttributeDetails: [BasicAttribute]
+    static var basicAttributes: [BasicAttribute]
     {
         [positionInfo]
     }
@@ -19,7 +19,7 @@ extension BasicInterleave
 public extension BasicInterleave
     where Self: Position & Normal
 {
-    static var basicAttributeDetails: [BasicAttribute]
+    static var basicAttributes: [BasicAttribute]
     {
         [positionInfo, normalInfo]
     }
@@ -28,7 +28,7 @@ public extension BasicInterleave
 public extension BasicInterleave
     where Self: Position & Texcoord
 {
-    static var basicAttributeDetails: [BasicAttribute]
+    static var basicAttributes: [BasicAttribute]
     {
         [positionInfo, texcoordInfo]
     }
@@ -37,7 +37,7 @@ public extension BasicInterleave
 public extension BasicInterleave
     where Self: Position & Color
 {
-    static var basicAttributeDetails: [BasicAttribute]
+    static var basicAttributes: [BasicAttribute]
     {
         [positionInfo, colorInfo]
     }
@@ -47,7 +47,7 @@ public extension BasicInterleave
 public extension BasicInterleave
     where Self: Position & Normal & Texcoord
 {
-    static var basicAttributeDetails: [BasicAttribute]
+    static var basicAttributes: [BasicAttribute]
     {
         [positionInfo, normalInfo, texcoordInfo]
     }
@@ -55,7 +55,7 @@ public extension BasicInterleave
 
 public extension BasicInterleave where Self: Position & Normal & Color
 {
-    static var basicAttributeDetails: [BasicAttribute]
+    static var basicAttributes: [BasicAttribute]
     {
         [positionInfo, normalInfo, colorInfo]
     }
@@ -63,7 +63,7 @@ public extension BasicInterleave where Self: Position & Normal & Color
 
 public extension BasicInterleave where Self: Position & Texcoord & Color
 {
-    static var basicAttributeDetails: [BasicAttribute]
+    static var basicAttributes: [BasicAttribute]
     {
         [positionInfo, texcoordInfo, colorInfo]
     }
@@ -71,7 +71,7 @@ public extension BasicInterleave where Self: Position & Texcoord & Color
 
 public extension BasicInterleave where Self: Position & Normal & Texcoord & Color
 {
-    static var basicAttributeDetails: [BasicAttribute]
+    static var basicAttributes: [BasicAttribute]
     {
         [positionInfo, normalInfo, texcoordInfo, colorInfo]
     }

@@ -15,7 +15,7 @@ public extension MetalInterleave
     where Self: Position,
           PositionType: VertexFormat
 {
-    static var metalAttributeDetails: [MetalAttribute]
+    static var metalAttributes: [MetalAttribute]
     {
         [metalPositionInfo]
     }
@@ -25,7 +25,7 @@ public extension MetalInterleave
     where Self: Position & Normal,
           PositionType: VertexFormat, NormalType: VertexFormat
 {
-    static var metalAttributeDetails: [MetalAttribute]
+    static var metalAttributes: [MetalAttribute]
     {
         [metalPositionInfo, metalNormalInfo]
     }
@@ -35,7 +35,7 @@ public extension MetalInterleave
     where Self: Position & Texcoord,
           PositionType: VertexFormat, TexcoordType: VertexFormat
 {
-    static var metalAttributeDetails: [MetalAttribute]
+    static var metalAttributes: [MetalAttribute]
     {
         [metalPositionInfo, metalTexcoordInfo]
     }
@@ -45,7 +45,7 @@ public extension MetalInterleave
     where Self: Position & Color,
           PositionType: VertexFormat, ColorType: VertexFormat
 {
-    static var metalAttributeDetails: [MetalAttribute]
+    static var metalAttributes: [MetalAttribute]
     {
         [metalPositionInfo, metalColorInfo]
     }
@@ -57,7 +57,7 @@ public extension MetalInterleave
           PositionType: VertexFormat, NormalType: VertexFormat,
           TexcoordType: VertexFormat
 {
-    static var metalAttributeDetails: [BasicAttribute]
+    static var metalAttributes: [BasicAttribute]
     {
         [positionInfo, normalInfo, texcoordInfo]
     }
@@ -68,7 +68,7 @@ public extension MetalInterleave
           PositionType: VertexFormat, NormalType: VertexFormat,
           ColorType: VertexFormat
 {
-    static var metalAttributeDetails: [BasicAttribute]
+    static var metalAttributes: [BasicAttribute]
     {
         [positionInfo, normalInfo, colorInfo]
     }
@@ -79,7 +79,7 @@ public extension MetalInterleave
           PositionType: VertexFormat, TexcoordType: VertexFormat,
           ColorType: VertexFormat
 {
-    static var metalAttributeDetails: [BasicAttribute]
+    static var metalAttributes: [BasicAttribute]
     {
         [positionInfo, texcoordInfo, colorInfo]
     }
@@ -90,7 +90,7 @@ public extension MetalInterleave
           PositionType: VertexFormat, NormalType: VertexFormat,
           TexcoordType: VertexFormat, ColorType: VertexFormat
 {
-    static var metalAttributeDetails: [BasicAttribute]
+    static var metalAttributes: [BasicAttribute]
     {
         [positionInfo, normalInfo, texcoordInfo, colorInfo]
     }

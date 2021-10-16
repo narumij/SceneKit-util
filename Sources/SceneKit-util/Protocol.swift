@@ -91,12 +91,12 @@ public protocol Interleave { }
 
 public protocol BasicInterleave: Interleave
 {
-    static var basicAttributeDetails: [BasicAttribute] { get }
+    static var basicAttributes: [BasicAttribute] { get }
 }
 
 public protocol MetalInterleave: Interleave
 {
-    static var metalAttributeDetails: [MetalAttribute] { get }
+    static var metalAttributes: [MetalAttribute] { get }
 }
 
 public protocol FullInterleave: BasicInterleave & MetalInterleave { }

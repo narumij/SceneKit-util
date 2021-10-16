@@ -125,7 +125,7 @@ extension Array where Element: BasicInterleave {
     
     func geometrySources() -> [SCNGeometrySource] {
         
-        Element.basicAttributeDetails.map {
+        Element.basicAttributes.map {
             SCNGeometrySource(data:                data,
                               semantic:            $0.semantic,
                               vectorCount:         count,
@@ -142,7 +142,7 @@ extension Array where Element: MetalInterleave {
     
     static func geometrySources(of vertexBuffer: MTLBuffer ) -> [SCNGeometrySource] {
         
-        Element.metalAttributeDetails.map {
+        Element.metalAttributes.map {
             SCNGeometrySource(buffer:       vertexBuffer,
                               vertexFormat: $0.vertexFormat,
                               semantic:     $0.semantic,
