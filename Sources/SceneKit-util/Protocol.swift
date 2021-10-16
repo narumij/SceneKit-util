@@ -7,13 +7,16 @@
 
 import SceneKit
 
+public protocol CommonTraits {
+    typealias AttrbKeyPath = PartialKeyPath<Self>
+}
 
-public protocol BasicTraits {
+public protocol BasicTraits: CommonTraits {
     typealias AttributeDetail = (semantic: SCNGeometrySource.Semantic,
                                  attributeFormat: BasicAttributeFormatTraits)
 }
 
-public protocol MetalTraits {
+public protocol MetalTraits: CommonTraits {
     typealias MetalAttributeDetail = (semantic: SCNGeometrySource.Semantic,
                                       attributeFormat: MetalAttributeFormatTraits)
 }
@@ -41,9 +44,9 @@ public protocol VertexScalar {
     static var vertexFormatArray: [MTLVertexFormat] { get }
 }
 
-public typealias BasicVertexDetail = UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr
+public typealias BasicVertexDetail = CommonTraits & BasicTraits & UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr
 
-public typealias MetalVertexDetail = BasicVertexDetail & VertexFormat & MetalTraits
+public typealias MetalVertexDetail = MetalTraits & BasicVertexDetail & VertexFormat
 
 
 // MARK: -
@@ -129,35 +132,22 @@ extension P where PositionType: MetalVertexDetail, Self: MetalTraits
 
 
 
-public protocol Interleave
+public protocol Interleave: BasicTraits
 {
-    typealias AttributeFormatType = BasicAttributeFormatTraits
-    typealias AttributeDetail = (semantic: SCNGeometrySource.Semantic,
-                                 attributeFormat: AttributeFormatType)
     static var attributeDetails: [AttributeDetail] { get }
-    typealias AttrbKeyPath = PartialKeyPath<Self>
 }
 
-public protocol BasicInterleave: Interleave {
-    
-}
-
-public protocol MetalInterleaveTraits___: Interleave
+public protocol MetalInterleave: BasicTraits & MetalTraits
 {
-    typealias MetalAttributeDetail = (semantic: SCNGeometrySource.Semantic,
-                                      attributeFormat: MetalAttributeFormatTraits)
+    static var attributeDetails: [AttributeDetail] { get }
     static var metalAttributeDetails: [MetalAttributeDetail] { get }
 }
 
-public extension MetalInterleaveTraits___ {
-    static var metalAttributeDetails: [MetalAttributeDetail] {
-        attributeDetails as? [MetalAttributeDetail] ?? []
-    }
-}
-
-public protocol MetalInterleave: Interleave & MetalInterleaveTraits___ {
-}
-
+//extension MetalInterleave {
+//    static var attributeDetails: [AttributeDetail] {
+//        metalAttributeDetails as [AttributeDetail]
+//    }
+//}
 
 // MARK: -
 
@@ -168,27 +158,18 @@ public protocol Position: Interleave
     static var positionKeyPath: AttrbKeyPath { get }
 }
 
-extension Position where Self.PositionType: MetalVertexDetail {
-}
-
-public protocol Normal: Interleave
+public protocol Normal
 {
     associatedtype NormalType: BasicVertexDetail, SIMD
     var normal: NormalType { get }
     static var normalKeyPath: PartialKeyPath<Self> { get }
 }
 
-extension Normal where Self.NormalType: MetalVertexDetail {
-}
-
-public protocol Texcoord: Interleave
+public protocol Texcoord
 {
     associatedtype TexcoordType: BasicVertexDetail
     var texcoord: TexcoordType { get }
     static var texcoordKeyPath: PartialKeyPath<Self> { get }
-}
-
-extension Texcoord where Self.TexcoordType: MetalVertexDetail {
 }
 
 public protocol Color: Interleave
@@ -198,8 +179,6 @@ public protocol Color: Interleave
     static var colorKeyPath: PartialKeyPath<Self> { get }
 }
 
-extension Color where Self.ColorType: MetalVertexDetail {
-}
 
 
 

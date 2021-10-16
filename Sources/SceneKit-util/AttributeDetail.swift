@@ -44,40 +44,68 @@ extension Position
 {
     static var positionInfo: AttributeDetail
     {
-        ( .vertex, positionFormat )
+        ( .vertex, Attrb<PositionType>(positionKeyPath) )
     }
-    
-    static var positionFormat: BasicAttributeFormatTraits {
-        Attrb<PositionType>(positionKeyPath)
-    }
-    
 }
 
-extension Texcoord
+extension Position where PositionType: MetalVertexDetail, Self: MetalTraits
+{
+    static var positionInfo: AttributeDetail
+    {
+        metalPositionInfo
+    }
+    
+    static var metalPositionInfo: MetalAttributeDetail
+    {
+        ( .vertex, Attrb<PositionType>(positionKeyPath) )
+    }
+}
+
+extension Texcoord where Self: BasicTraits
 {
     static var texcoordInfo: AttributeDetail
     {
-        ( .texcoord, texcoordFormat )
+        ( .vertex, Attrb<TexcoordType>(texcoordKeyPath) )
     }
-    
-    static var texcoordFormat: BasicAttributeFormatTraits {
-        Attrb<TexcoordType>(texcoordKeyPath)
+}
+
+extension Texcoord where TexcoordType: MetalVertexDetail, Self: BasicTraits & MetalTraits
+{
+    static var texcoordInfo: AttributeDetail
+    {
+        metalTexcoordInfo
+    }
+
+    static var metalTexcoordInfo: MetalAttributeDetail
+    {
+        ( .vertex, Attrb<TexcoordType>(texcoordKeyPath) )
+    }
+}
+
+
+extension Normal where Self: BasicTraits
+{
+    static var normalInfo: AttributeDetail
+    {
+        ( .normal, Attrb<NormalType>(normalKeyPath) )
     }
     
 }
 
-extension Normal
+extension Normal where NormalType: MetalVertexDetail, Self: BasicTraits & MetalTraits
 {
     static var normalInfo: AttributeDetail
     {
-        ( .normal, normalFormat )
+        metalNormalInfo
     }
-    
-    static var normalFormat: BasicAttributeFormatTraits {
-        Attrb<NormalType>(normalKeyPath)
+
+    static var metalNormalInfo: MetalAttributeDetail
+    {
+        ( .vertex, Attrb<NormalType>(normalKeyPath) )
     }
-    
 }
+
+
 
 extension Color
 {
@@ -95,19 +123,48 @@ extension Color
 
 // MARK: -
 
-public extension Interleave where Self: Position
+extension Interleave where Self: Position
 {
-    static var attributeDetails: [AttributeDetail] { [positionInfo] }
+    static var attributeDetails: [AttributeDetail] {
+        [positionInfo]
+    }
+}
+
+extension MetalInterleave where Self: Position, Self.PositionType: MetalVertexDetail
+{
+    static var metalAttributeDetails: [MetalAttributeDetail] {
+        [metalPositionInfo]
+    }
 }
 
 public extension Interleave where Self: Position & Normal
 {
-    static var attributeDetails: [AttributeDetail] { [positionInfo, normalInfo] }
+    static var attributeDetails: [AttributeDetail] {
+        [positionInfo, normalInfo]
+    }
+}
+
+public extension MetalInterleave
+    where Self: Position & Normal, Self.PositionType: MetalVertexDetail, Self.NormalType: MetalVertexDetail
+{
+    static var metalAttributeDetails: [MetalAttributeDetail] {
+        [metalPositionInfo, metalNormalInfo]
+    }
 }
 
 public extension Interleave where Self: Position & Texcoord
 {
-    static var attributeDetails: [AttributeDetail] { [positionInfo, texcoordInfo] }
+    static var attributeDetails: [AttributeDetail] {
+        [positionInfo, texcoordInfo]
+    }
+}
+
+public extension MetalInterleave
+    where Self: Position & Texcoord, Self.PositionType: MetalVertexDetail, Self.TexcoordType: MetalVertexDetail
+{
+    static var metalAttributeDetails: [MetalAttributeDetail] {
+        [metalPositionInfo, metalTexcoordInfo]
+    }
 }
 
 public extension Interleave where Self: Position & Color

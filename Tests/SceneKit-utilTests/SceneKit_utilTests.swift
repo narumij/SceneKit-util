@@ -22,7 +22,7 @@ extension MyVertex {
 
 }
 
-extension MyVertex: Position, Texcoord, P {
+extension MyVertex: Position, Texcoord, MetalInterleave {
     static var positionKeyPath: AttrbKeyPath { \Self.position }
     static var texcoordKeyPath: AttrbKeyPath { \Self.texcoord }
 }
@@ -89,7 +89,7 @@ extension Array where Element == MyVertex {
     }
 }
 
-struct vertex_t2d_v3d: Position, Texcoord, MetalInterleave {
+struct vertex_t2d_v3d: Position, Texcoord, Interleave {
     var position: SCNVector3
     var texcoord: CGPoint
 }
