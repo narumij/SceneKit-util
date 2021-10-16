@@ -17,6 +17,16 @@ public struct VertexKeyPath<VertexType>: KeyPathProperty {
 }
 
 public struct BasicAttrb: BasicAttributeFormatTraits {
+    public init<T>(_ keyPath: PartialKeyPath<T>,
+                   usesFloatComponents ufc: Bool,
+                   componentsPerVector cpv: Int,
+                   bytesPerComponent bpc: Int)
+    {
+        vertexKeyPath = VertexKeyPath(keyPath: keyPath)
+        usesFloatComponents = ufc
+        componentsPerVector = cpv
+        bytesPerComponent = bpc
+    }
     public let vertexKeyPath: KeyPathProperty
     public var dataOffset: Int! { vertexKeyPath.dataOffset }
     public let usesFloatComponents: Bool
