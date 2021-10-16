@@ -48,20 +48,6 @@ extension SIMD where Scalar: BytesPerComponent {
 
 // MARK: -
 
-#if true
-@available(iOS 14.0, *)
-@available(macOS 11.0, *)
-extension Float16
-{
-    public static var vertexFormat: MTLVertexFormat { .half }
-
-    public static var vertexFormatArray: [MTLVertexFormat]
-    {
-        [ .half2, .half3, .half4 ]
-    }
-}
-#endif
-
 extension Float32
 {
     @available(iOS 11.0, *)
@@ -179,12 +165,6 @@ extension UInt32:  VertexFormat { }
 extension Int32:   VertexFormat { }
 @available(iOS 11.0, *)
 extension Float32: VertexFormat { }
-
-#if true
-@available(iOS 14.0, *)
-@available(macOS 11.0, *)
-extension Float16: BasicVertexDetail & VertexScalar { }
-#endif
 
 extension SIMD2: BasicVertexDetail & MetalVertexDetail where Scalar: BasicVertexDetail & VertexScalar { }
 extension SIMD3: BasicVertexDetail & MetalVertexDetail where Scalar: BasicVertexDetail & VertexScalar { }

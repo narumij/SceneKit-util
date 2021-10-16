@@ -7,26 +7,6 @@
 
 import SceneKit
 
-public protocol CommonTraits {
-    typealias AttrbKeyPath = PartialKeyPath<Self>
-}
-
-
-//public protocol BasicTraits: CommonTraits {
-//    typealias AttributeDetail = (semantic: SCNGeometrySource.Semantic,
-//                                 attributeFormat: BasicAttributeFormatTraits)
-//    typealias BasicAttribute = BasicAttributeFormatTraits
-//}
-
-//public protocol MetalTraits: CommonTraits {
-//    typealias MetalAttributeDetail = (semantic: SCNGeometrySource.Semantic,
-//                                      attributeFormat: MetalAttributeFormatTraits)
-//    typealias MetalAttribute = MetalAttributeFormatTraits
-//}
-
-
-// MARK: -
-
 public protocol UsesFloatComponents {
     static var usesFloatComponents: Bool { get }
 }
@@ -47,7 +27,7 @@ public protocol VertexScalar {
     static var vertexFormatArray: [MTLVertexFormat] { get }
 }
 
-public typealias BasicVertexDetail = CommonTraits & UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr
+public typealias BasicVertexDetail = UsesFloatComponents & BytesPerComponent & ComponentsPerVecotr
 
 public typealias MetalVertexDetail = BasicVertexDetail & VertexFormat
 
@@ -105,6 +85,14 @@ public protocol MetalInterleave: Interleave
 }
 
 public protocol FullInterleave: BasicInterleave & MetalInterleave { }
+
+// MARK: -
+
+
+public protocol CommonTraits {
+    typealias AttrbKeyPath = PartialKeyPath<Self>
+}
+
 
 // MARK: -
 

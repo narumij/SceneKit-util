@@ -8,6 +8,7 @@
 import SceneKit
 import Metal
 
+
 public struct VertexKeyPath<VertexType>: KeyPathProperty {
     let keyPath: PartialKeyPath<VertexType>
     public var dataOffset: Int!
@@ -16,6 +17,7 @@ public struct VertexKeyPath<VertexType>: KeyPathProperty {
     }
 }
 
+// MARK: -
 
 public struct BasicAttrb: BasicAttribute {
     public init<T>(_ sm: Semantic,
@@ -38,6 +40,7 @@ public struct BasicAttrb: BasicAttribute {
     public var dataOffset: Int! { vertexKeyPath.dataOffset }
 }
 
+// MARK: -
 
 public struct MetalAttrb: MetalAttribute {
     public init<T>(_ sm: Semantic,
@@ -54,6 +57,7 @@ public struct MetalAttrb: MetalAttribute {
     public var dataOffset: Int! { vertexKeyPath.dataOffset }
 }
 
+// MARK: -
 
 public struct Attrb<AttributeType>: BasicAttrbFormat where AttributeType: BasicVertexDetail
 {
