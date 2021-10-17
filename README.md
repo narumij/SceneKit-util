@@ -2,6 +2,10 @@
 
 Easily assemble SCN Geometry from Array or MTL Buffer.
 
+## Motivation
+
+I wanted to make the old code I had written easier to use later.
+
 ## Features
 
 |Features|
