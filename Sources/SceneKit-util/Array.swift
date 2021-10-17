@@ -154,7 +154,6 @@ extension Array where Element: BasicVertexDetail {
                            dataOffset: 0,
                            dataStride: stride )
     }
-    
 }
 
 extension Array where Element: MetalVertexDetail {
@@ -169,9 +168,7 @@ extension Array where Element: MetalVertexDetail {
                           vertexCount:  count(of: buffer),
                           dataOffset:   0,
                           dataStride:   stride )
-
     }
-    
 }
 
 
