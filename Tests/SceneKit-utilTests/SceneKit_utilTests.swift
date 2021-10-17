@@ -16,7 +16,7 @@ enum Semantics {
 
 extension MyVertex {
         
-    static func semantic<T>(_ v: T,_ keyPath: PartialKeyPath<Self>) -> some AttributeFormatTraits where T: BasicVertexDetail {
+    static func semantic<T>(_ v: T,_ keyPath: PartialKeyPath<Self>) -> some Attribute where T: BasicVertexDetail {
         Attrb<T>(.vertex, keyPath)
     }
 
@@ -34,7 +34,7 @@ extension MyVertex: VertexInfo {
     
 //    static var vertexInfo: InterleaveInfo { [ .vertex: \.position, .texcoord: \.texcoord ] }
     static let hogehoge //: [ SCNGeometrySource.Semantic: (,PartialKeyPath<MyVertex>) ]
-    : [SCNGeometrySource.Semantic: AttributeFormatTraits]
+    : [SCNGeometrySource.Semantic: Attribute]
     = [  .vertex: semantic( SIMD2<Float>.zero, \Self.position ),
          .texcoord: Attrb<SIMD2<Float>>(.texcoord,\Self.texcoord) ]
     

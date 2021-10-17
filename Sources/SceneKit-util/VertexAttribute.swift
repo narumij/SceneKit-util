@@ -65,9 +65,9 @@ public struct MetalAttrb: MetalAttribute {
 
 // MARK: -
 
-public struct Attrb<AttributeType>: BasicAttrbFormat
-    where AttributeType: BasicVertexDetail
-{
+public struct Attrb<AttributeType>: TypedBasicAttribute
+    where AttributeType: BasicVertexDetail {
+    
     public init<T>(_ sm: Semantic,
                    _ keyPath: PartialKeyPath<T>)
     {
@@ -83,9 +83,9 @@ public struct Attrb<AttributeType>: BasicAttrbFormat
     public var dataOffset:          Int! { keyPathOffset.dataOffset }
 }
 
-extension Attrb: MetalAttribute & MetalAttrbFormat
-    where AttributeType: MetalVertexDetail
-{
+extension Attrb: MetalAttribute & TypedMetalAttribute
+    where AttributeType: MetalVertexDetail {
+    
     public var vertexFormat: MTLVertexFormat
     {
         AttributeType.vertexFormat
@@ -94,8 +94,8 @@ extension Attrb: MetalAttribute & MetalAttrbFormat
 
 // MARK: -
 
-extension Position
-{
+extension Position {
+    
     static var positionInfo: BasicAttribute
     {
         Attrb<PositionType>(.vertex, positionKeyPath)
@@ -103,8 +103,8 @@ extension Position
 }
 
 extension Position
-    where PositionType: VertexFormat
-{
+    where PositionType: VertexFormat {
+    
     static var metalPositionInfo: MetalAttribute
     {
          Attrb<PositionType>(.vertex, positionKeyPath)
@@ -113,58 +113,58 @@ extension Position
 
 // MARK: -
 
-extension Normal
-{
-    static var normalInfo: BasicAttribute
-    {
+extension Normal {
+    
+    static var normalInfo: BasicAttribute {
+        
         Attrb<NormalType>(.normal, normalKeyPath)
     }
     
 }
 
 extension Normal
-    where NormalType: VertexFormat
-{
-    static var metalNormalInfo: MetalAttribute
-    {
+    where NormalType: VertexFormat {
+    
+    static var metalNormalInfo: MetalAttribute {
+        
         Attrb<NormalType>(.normal, normalKeyPath)
     }
 }
 
 // MARK: -
 
-extension Texcoord
-{
-    static var texcoordInfo: BasicAttribute
-    {
+extension Texcoord {
+    
+    static var texcoordInfo: BasicAttribute {
+        
         Attrb<TexcoordType>(.texcoord, texcoordKeyPath)
     }
 }
 
 extension Texcoord
-    where TexcoordType: VertexFormat
-{
-    static var metalTexcoordInfo: MetalAttribute
-    {
+    where TexcoordType: VertexFormat {
+    
+    static var metalTexcoordInfo: MetalAttribute {
+        
         Attrb<TexcoordType>(.texcoord, texcoordKeyPath)
     }
 }
 
 // MARK: -
 
-extension Color
-{
-    static var colorInfo: BasicAttribute
-    {
+extension Color {
+    
+    static var colorInfo: BasicAttribute {
+        
         Attrb<ColorType>(.color, colorKeyPath)
     }
 }
 
 extension Color
-    where ColorType: VertexFormat
-{
-    static var metalColorInfo: MetalAttribute
-    {
+    where ColorType: VertexFormat {
+    
+    static var metalColorInfo: MetalAttribute {
+        
         Attrb<ColorType>(.color, colorKeyPath)
     }
 }

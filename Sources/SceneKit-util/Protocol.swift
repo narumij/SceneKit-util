@@ -53,12 +53,12 @@ public protocol KeyPathProperty {
     var dataOffset: Int! { get }
 }
 
-public protocol AttributeFormatTraits {
+public protocol Attribute {
     typealias Semantic = SCNGeometrySource.Semantic
     var semantic: Semantic { get }
 }
 
-public protocol BasicAttribute: AttributeFormatTraits
+public protocol BasicAttribute: Attribute
 {
     var usesFloatComponents: Bool { get }
     var componentsPerVector: Int  { get }
@@ -66,7 +66,7 @@ public protocol BasicAttribute: AttributeFormatTraits
     var dataOffset:          Int! { get }
 }
 
-public protocol MetalAttribute: AttributeFormatTraits
+public protocol MetalAttribute: Attribute
 {
     var vertexFormat: MTLVertexFormat { get }
     var dataOffset:  Int!             { get }
@@ -74,14 +74,14 @@ public protocol MetalAttribute: AttributeFormatTraits
 
 // MARK: -
 
-public protocol AttrbFormat {
+public protocol TypedAttribute {
     associatedtype AttributeType
 }
 
-public protocol BasicAttrbFormat: AttrbFormat & BasicAttribute
+public protocol TypedBasicAttribute: TypedAttribute & BasicAttribute
     where AttributeType: BasicVertexDetail { }
 
-public protocol MetalAttrbFormat: AttrbFormat & MetalAttribute
+public protocol TypedMetalAttribute: TypedAttribute & MetalAttribute
     where AttributeType: MetalVertexDetail { }
 
 
