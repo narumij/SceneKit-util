@@ -1,6 +1,6 @@
 # SceneKit-util
 
-Easily assemble SCN Geometry from Array or MTL Buffer.
+Easily assemble SCNGeometry from Array or MTL Buffer.
 
 ## Motivation
 
