@@ -9,8 +9,8 @@ import SceneKit
 import Metal
 
 /// 構造体化された頂点を利用する
-public struct Interleaved<VertexType: Interleave>
-{
+public struct Interleaved<VertexType: Interleave> {
+    
     fileprivate let source: InterleaveSource
     
     public init(array aa: [VertexType]) where VertexType: BasicInterleave
@@ -152,8 +152,7 @@ extension TypedBuffer: SemanticSource where Element: MetalVertexDetail { }
 extension Separated
 {
 
-    public class Semantic
-    {
+    public class Semantic {
         
         fileprivate var source: SemanticSource { fatalError() }
         
@@ -176,8 +175,7 @@ extension Separated
     
     // MARK: -
 
-    public class ArrayItem<T: BasicVertexDetail>: ArraySemantic
-    {
+    public class ArrayItem<T: BasicVertexDetail>: ArraySemantic {
         
         init(semantic s: SCNGeometrySource.Semantic,
              array    a: [T] )
@@ -192,8 +190,7 @@ extension Separated
         
     }
 
-    public class BufferItem<T: MetalVertexDetail>: BufferSemantic
-    {
+    public class BufferItem<T: MetalVertexDetail>: BufferSemantic {
         
         init(semantic s: SCNGeometrySource.Semantic,
              buffer   b: TypedBuffer<T> )
@@ -219,7 +216,7 @@ extension SemanticSource
 {
     func geometryElement(primitiveType type: PrimitiveType) -> SCNGeometryElement
     {
-        count.geometryElement(primitiveType: type)
+        _geometryElement(count: count, primitiveType: type)
     }
     
 }

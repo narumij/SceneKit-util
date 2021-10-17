@@ -7,43 +7,23 @@
 
 import SceneKit
 
-extension Int
+struct LineStrip
 {
     
-    fileprivate struct LineStrip
+    let count: Int
+    
+    func idx(_ n: Int) -> Int { n / 2 + n % 2 }
+    
+    var lineStripIndices: [Int]
     {
-        
-        let count: Int
-        
-        func idx(_ n: Int) -> Int { n / 2 + n % 2 }
-        
-        var lineStripIndices: [Int]
-        {
-            count == 0 ? [] : Array<Int>( 0 ..< (count-1)*2).map{ idx($0) }
-        }
-        
-        func geometryElement() -> SCNGeometryElement
-        {
-            lineStripIndices
-                .map({Int32($0)})
-                .geometryElement(primitiveType: .line)
-        }
-        
+        count == 0 ? [] : Array<Int>( 0 ..< (count-1)*2).map{ idx($0) }
     }
     
-    fileprivate func geometryElement(primitiveType type: SCNGeometryPrimitiveType) -> SCNGeometryElement
+    func geometryElement() -> SCNGeometryElement
     {
-        ( 0 ..< self )
-            .map({ UInt32( $0 ) })
-            .geometryElement(primitiveType: type )
+        lineStripIndices
+            .map({UInt32($0)})
+            .geometryElement(primitiveType: .line)
     }
     
-    func geometryElement(primitiveType type: PrimitiveType) -> SCNGeometryElement
-    {
-        type == .lineStrip
-        ? LineStrip(count: self).geometryElement()
-        : geometryElement(primitiveType: .init(type))
-    }
-
 }
-
