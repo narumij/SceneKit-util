@@ -182,3 +182,4 @@ func _geometryElement(count: Int, primitiveType type: PrimitiveType) -> SCNGeome
         .map({ UInt32( $0 ) })
         .geometryElement(primitiveType: .init(type) )
 }
+
