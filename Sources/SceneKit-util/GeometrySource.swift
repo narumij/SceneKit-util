@@ -237,50 +237,50 @@ extension Separated.Semantic {
     }
 
     
-    static func vertex<T>(_ array: [T]) -> Separated.ArraySemantic
+    public static func vertex<T>(_ array: [T]) -> Separated.ArraySemantic
         where T: BasicVertexDetail {
         
         Separated.ArrayItem(semantic: .vertex, array: array);
     }
     
-    static func normal<T>(_ array: [T]) -> Separated.ArraySemantic
+    public static func normal<T>(_ array: [T]) -> Separated.ArraySemantic
         where T: BasicVertexDetail {
         
         Separated.ArrayItem(semantic: .normal, array: array);
     }
     
-    static func color<T>(_ array: [T]) -> Separated.ArraySemantic
+    public static func color<T>(_ array: [T]) -> Separated.ArraySemantic
         where T: BasicVertexDetail {
         
         Separated.ArrayItem(semantic: .color, array: array);
     }
     
-    static func texcoord<T>(_ array: [T]) -> Separated.ArraySemantic
+    public static func texcoord<T>(_ array: [T]) -> Separated.ArraySemantic
         where T: BasicVertexDetail {
         
         Separated.ArrayItem(semantic: .texcoord, array: array);
     }
 
     
-    static func vertex<T>(_ buffer: TypedBuffer<T>) -> Separated.BufferSemantic
+    public static func vertex<T>(_ buffer: TypedBuffer<T>) -> Separated.BufferSemantic
         where T: MetalVertexDetail {
         
         Separated.BufferItem(semantic: .vertex, buffer: buffer);
     }
     
-    static func normal<T>(_ buffer: TypedBuffer<T>) -> Separated.BufferSemantic
+    public static func normal<T>(_ buffer: TypedBuffer<T>) -> Separated.BufferSemantic
         where T: MetalVertexDetail {
         
         Separated.BufferItem(semantic: .normal, buffer: buffer);
     }
     
-    static func color<T>(_ buffer: TypedBuffer<T>) -> Separated.BufferSemantic
+    public static func color<T>(_ buffer: TypedBuffer<T>) -> Separated.BufferSemantic
         where T: MetalVertexDetail {
         
         Separated.BufferItem(semantic: .color, buffer: buffer);
     }
     
-    static func texcoord<T>(_ buffer: TypedBuffer<T>) -> Separated.BufferSemantic
+    public static func texcoord<T>(_ buffer: TypedBuffer<T>) -> Separated.BufferSemantic
         where T: MetalVertexDetail {
         
         Separated.BufferItem(semantic: .texcoord, buffer: buffer);
