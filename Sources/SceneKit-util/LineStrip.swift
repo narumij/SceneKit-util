@@ -7,23 +7,24 @@
 
 import SceneKit
 
-struct LineStrip
-{
+struct LineStrip {
     
     let count: Int
     
-    func idx(_ n: Int) -> Int { n / 2 + n % 2 }
+    func idx(_ n: Int) -> Int {
+        
+        n / 2 + n % 2
+    }
     
-    var lineStripIndices: [Int]
-    {
+    var lineStripIndices: [Int] {
+        
         count == 0 ? [] : Array<Int>( 0 ..< (count-1)*2).map{ idx($0) }
     }
     
-    func geometryElement() -> SCNGeometryElement
-    {
+    func geometryElement() -> SCNGeometryElement {
+        
         lineStripIndices
             .map({UInt32($0)})
             .geometryElement(primitiveType: .line)
     }
-    
 }

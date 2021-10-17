@@ -19,7 +19,6 @@ public struct TypedBuffer<T> {
         buffer = b
         vertexFormat = vf
     }
-    
 }
 
 extension TypedBuffer where Element: FixedWidthInteger {
@@ -28,7 +27,6 @@ extension TypedBuffer where Element: FixedWidthInteger {
     {
         Array<Element>.geometryElement( of: buffer, primitiveType: type )
     }
-    
 }
 
 extension TypedBuffer where Element: MetalVertexDetail {
@@ -37,7 +35,6 @@ extension TypedBuffer where Element: MetalVertexDetail {
         
         Array<Element>.geometrySource(of: buffer, semantic: s, vertexFormat: vertexFormat)
     }
-    
 }
 
 extension TypedBuffer where Element: MetalInterleave {
@@ -46,7 +43,6 @@ extension TypedBuffer where Element: MetalInterleave {
         
         Array<Element>.geometrySources(of: buffer)
     }
-    
 }
 
 extension TypedBuffer {
@@ -57,6 +53,5 @@ extension TypedBuffer {
         
         _geometryElement(count: count, primitiveType: type)
     }
-
 }
 

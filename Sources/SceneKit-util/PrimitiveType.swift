@@ -8,8 +8,8 @@
 import SceneKit
 
 /// 描画形状
-public enum PrimitiveType : Int
-{
+public enum PrimitiveType : Int {
+    
     /// 三角
     case triangles = 0
     /// 連続の三角
@@ -27,9 +27,10 @@ public enum PrimitiveType : Int
 }
 
 
-extension SCNGeometryPrimitiveType
-{
+extension SCNGeometryPrimitiveType {
+    
     init(_ t: PrimitiveType) {
+        
         switch t {
         case .triangles:
             self = .triangles
@@ -45,13 +46,12 @@ extension SCNGeometryPrimitiveType
             fatalError()
         }
     }
-    
 }
 
-extension Int
-{
-    func primitiveCount(of type: SCNGeometryPrimitiveType ) -> Int
-    {
+extension Int {
+    
+    func primitiveCount(of type: SCNGeometryPrimitiveType ) -> Int {
+        
         switch type {
         case .triangleStrip:
             return (self - 2)
@@ -62,8 +62,6 @@ extension Int
         default:
             return self
         }
-        
     }
-    
 }
 

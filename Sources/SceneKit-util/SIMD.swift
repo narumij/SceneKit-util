@@ -7,12 +7,13 @@
 
 import SceneKit
 
-extension CGPoint: SIMD
-{
+extension CGPoint: SIMD {
+    
     public typealias MaskStorage = SIMD2<CGFloat.NativeType>.MaskStorage
-    public subscript(index: Int) -> CGFloat
-    {
+    public subscript(index: Int) -> CGFloat {
+        
         get {
+            
             switch index {
             case 0: return x
             case 1: return y
@@ -20,6 +21,7 @@ extension CGPoint: SIMD
             }
         }
         set(newValue) {
+            
             switch index {
             case 0: x = newValue
             case 1: y = newValue
@@ -31,12 +33,13 @@ extension CGPoint: SIMD
     public typealias Scalar = CGFloat
 }
 
-extension CGSize: SIMD
-{
+extension CGSize: SIMD {
+    
     public typealias MaskStorage = SIMD2<CGFloat.NativeType>.MaskStorage
-    public subscript(index: Int) -> CGFloat
-    {
+    public subscript(index: Int) -> CGFloat {
+        
         get {
+            
             switch index {
             case 0: return width
             case 1: return height
@@ -44,6 +47,7 @@ extension CGSize: SIMD
             }
         }
         set(newValue) {
+            
             switch index {
             case 0: width = newValue
             case 1: height = newValue
@@ -56,15 +60,17 @@ extension CGSize: SIMD
 }
 
 extension SCNFloat {
+    
     public typealias NativeType = Double
 }
 
-extension SCNVector3: SIMD
-{
+extension SCNVector3: SIMD {
+    
     public typealias MaskStorage = SIMD3<SCNFloat.NativeType>.MaskStorage
-    public subscript(index: Int) -> SCNFloat
-    {
+    public subscript(index: Int) -> SCNFloat {
+        
         get {
+            
             switch index {
             case 0: return x
             case 1: return y
@@ -73,6 +79,7 @@ extension SCNVector3: SIMD
             }
         }
         set(newValue) {
+            
             switch index {
             case 0: x = newValue
             case 1: y = newValue
@@ -87,10 +94,12 @@ extension SCNVector3: SIMD
 
 
 extension SCNVector4: SIMD {
+    
     public typealias MaskStorage = SIMD4<SCNFloat.NativeType>.MaskStorage
-    public subscript(index: Int) -> SCNFloat
-    {
+    public subscript(index: Int) -> SCNFloat {
+        
         get {
+            
             switch index {
             case 0: return x
             case 1: return y
@@ -100,6 +109,7 @@ extension SCNVector4: SIMD {
             }
         }
         set(newValue) {
+            
             switch index {
             case 0: x = newValue
             case 1: y = newValue
@@ -111,6 +121,5 @@ extension SCNVector4: SIMD {
     }
     public var scalarCount: Int { 4 }
     public typealias Scalar = SCNFloat
-    
 }
 

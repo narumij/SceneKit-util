@@ -13,8 +13,8 @@ public struct VertexKeyPath<VertexType>: KeyPathProperty {
     
     let keyPath: PartialKeyPath<VertexType>
     
-    public var dataOffset: Int!
-    {
+    public var dataOffset: Int! {
+        
         MemoryLayout<VertexType>.offset(of: keyPath)
     }
 }
