@@ -27,8 +27,8 @@ public struct BasicAttrb: BasicAttribute {
                    _ keyPath: PartialKeyPath<T>,
                    usesFloatComponents ufc: Bool,
                    componentsPerVector cpv: Int,
-                   bytesPerComponent bpc: Int)
-    {
+                   bytesPerComponent bpc: Int) {
+        
         semantic = sm
         vertexKeyPath = VertexKeyPath(keyPath: keyPath)
         usesFloatComponents = ufc
@@ -50,8 +50,8 @@ public struct MetalAttrb: MetalAttribute {
     
     public init<T>(_ sm: Semantic,
                    _ vs: MTLVertexFormat,
-                   _ keyPath: PartialKeyPath<T>)
-    {
+                   _ keyPath: PartialKeyPath<T>) {
+        
         semantic = sm
         vertexKeyPath = VertexKeyPath(keyPath: keyPath)
         vertexFormat = vs
@@ -69,8 +69,8 @@ public struct Attrb<AttributeType>: TypedBasicAttribute
     where AttributeType: BasicVertexDetail {
     
     public init<T>(_ sm: Semantic,
-                   _ keyPath: PartialKeyPath<T>)
-    {
+                   _ keyPath: PartialKeyPath<T>) {
+        
         semantic = sm
         keyPathOffset = VertexKeyPath<T>(keyPath: keyPath)
     }
@@ -86,8 +86,8 @@ public struct Attrb<AttributeType>: TypedBasicAttribute
 extension Attrb: MetalAttribute & TypedMetalAttribute
     where AttributeType: MetalVertexDetail {
     
-    public var vertexFormat: MTLVertexFormat
-    {
+    public var vertexFormat: MTLVertexFormat {
+        
         AttributeType.vertexFormat
     }
 }
@@ -97,8 +97,8 @@ extension Attrb: MetalAttribute & TypedMetalAttribute
 
 extension Position {
     
-    static var positionInfo: BasicAttribute
-    {
+    static var positionInfo: BasicAttribute {
+        
         Attrb<PositionType>(.vertex, positionKeyPath)
     }
 }
@@ -106,8 +106,8 @@ extension Position {
 extension Position
     where PositionType: VertexFormat {
     
-    static var metalPositionInfo: MetalAttribute
-    {
+    static var metalPositionInfo: MetalAttribute {
+        
          Attrb<PositionType>(.vertex, positionKeyPath)
     }
 }
