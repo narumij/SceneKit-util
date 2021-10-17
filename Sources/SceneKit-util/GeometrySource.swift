@@ -13,12 +13,14 @@ public struct Interleaved<VertexType: Interleave> {
     
     fileprivate let source: InterleaveSource
     
-    public init(array aa: [VertexType]) where VertexType: BasicInterleave {
+    public init(array aa: [VertexType])
+        where VertexType: BasicInterleave {
         
         source = aa
     }
     
-    public init(buffer b: MTLBuffer) where VertexType: MetalInterleave {
+    public init(buffer b: MTLBuffer)
+        where VertexType: MetalInterleave {
         
         source = TypedBuffer<VertexType>(b)
     }
@@ -102,31 +104,38 @@ extension Array:       InterleaveSource where Element: BasicInterleave { }
 
 extension Separated {
     
-    public init<T: BasicVertexDetail>(vertex: [T]) {
+    public init<T>(vertex: [T])
+        where T: BasicVertexDetail {
         
         self.init(items: [.vertex(vertex)] )
     }
     
-    public init<T: BasicVertexDetail,S: BasicVertexDetail>(vertex: [T], normal: [S]) {
+    public init<T, S>(vertex: [T], normal: [S])
+        where T: BasicVertexDetail, S: BasicVertexDetail {
         
         self.init(items: [.vertex(vertex), .normal(normal)] )
     }
     
-    public init<T: BasicVertexDetail,S: BasicVertexDetail>(vertex: [T], texcoord: [S]) {
+    public init<T, S>(vertex: [T], texcoord: [S])
+        where T: BasicVertexDetail, S: BasicVertexDetail {
         
         self.init(items: [.vertex(vertex), .texcoord(texcoord)] )
     }
     
-    public init<T: BasicVertexDetail,S: BasicVertexDetail, U: BasicVertexDetail>(vertex: [T], normal: [S], texcoord: [U]) {
+    public init<T, S, U>(vertex: [T], normal: [S], texcoord: [U])
+        where T: BasicVertexDetail, S: BasicVertexDetail, U: BasicVertexDetail {
+        
         self.init(items: [.vertex(vertex), .normal(normal), .texcoord(texcoord)] )
     }
     
-    public init<T: BasicVertexDetail,S: BasicVertexDetail>(vertex: [T], color: [S]) {
+    public init<T, S>(vertex: [T], color: [S])
+        where T: BasicVertexDetail, S: BasicVertexDetail {
         
         self.init(items: [.vertex(vertex), .color(color)] )
     }
     
-    public init<T: BasicVertexDetail,S: BasicVertexDetail, U: BasicVertexDetail>(vertex: [T], normal: [S], color: [U]) {
+    public init<T, S, U>(vertex: [T], normal: [S], color: [U])
+        where T: BasicVertexDetail, S: BasicVertexDetail, U: BasicVertexDetail {
         
         self.init(items: [.vertex(vertex), .normal(normal), .color(color)] )
     }
@@ -182,7 +191,6 @@ extension Separated {
         fileprivate override var source: SemanticSource { array }
         
         private let array: [T]
-        
     }
 
     public class BufferItem<T: MetalVertexDetail>: BufferSemantic {
@@ -197,10 +205,7 @@ extension Separated {
         fileprivate override var source: SemanticSource { buffer }
         
         private let buffer: TypedBuffer<T>
-        
     }
-
-
 }
 
 
@@ -213,7 +218,6 @@ extension SemanticSource {
         
         _geometryElement(count: count, primitiveType: type)
     }
-    
 }
 
 

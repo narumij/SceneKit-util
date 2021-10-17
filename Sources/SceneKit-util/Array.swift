@@ -33,7 +33,6 @@ extension Array {
         
         buffer.length / stride
     }
-    
 }
 
 extension Array {
@@ -47,7 +46,6 @@ extension Array {
         
         MemoryLayout<Element>.stride
     }
-    
 }
 
 extension Array {
@@ -66,7 +64,6 @@ extension Array {
             .map({ UInt32($0) })
             .geometryElement(primitiveType: type)
     }
-
 }
 
 // MARK: -
@@ -94,9 +91,7 @@ extension Array where Element: FixedWidthInteger {
             return SCNGeometryElement( indices: Self( elementBuffer ), primitiveType: primitiveType )
             
         }
-        
     }
-    
 }
 
 extension Array where Element: BasicInterleave {
@@ -105,7 +100,6 @@ extension Array where Element: BasicInterleave {
         
         _geometryElement(count: count, primitiveType: type)
     }
-
 }
 
 extension Array where Element: BasicInterleave {
@@ -181,8 +175,8 @@ extension Array where Element: MetalVertexDetail {
 }
 
 
-func _geometryElement(count: Int, primitiveType type: PrimitiveType) -> SCNGeometryElement
-{
+func _geometryElement(count: Int, primitiveType type: PrimitiveType) -> SCNGeometryElement {
+    
     type == .lineStrip
     
     ? LineStrip(count: count).geometryElement()
@@ -190,7 +184,4 @@ func _geometryElement(count: Int, primitiveType type: PrimitiveType) -> SCNGeome
     : ( 0 ..< count )
         .map({ UInt32( $0 ) })
         .geometryElement(primitiveType: .init(type) )
-    
 }
-
-
