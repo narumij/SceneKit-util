@@ -7,7 +7,7 @@ let package = Package(
     name: "SceneKit-util",
     platforms: [
 //        .macOS(.v10_13), .iOS(.v11)
-        .macOS(.v11), .iOS(.v14)
+        .macOS(.v10_13), .iOS(.v14), .tvOS(.v14)
         ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.

@@ -59,12 +59,13 @@ extension VertexInfo {
     }
 }
 
-
+@available(macOS 11.0, iOS 14.0, watchOS 7.0, tvOS 14.0, *)
 struct HalfVertex {
     let position: SIMD3<Float16>
     let normal: SIMD3<Float16>
 }
 
+@available(macOS 11.0, iOS 14.0, watchOS 7.0, tvOS 14.0, *)
 extension HalfVertex: BasicInterleave, MetalInterleave {
     public static var basicAttributes: [BasicAttribute] {
         [ BasicAttrb( .vertex, \Self.position, usesFloatComponents: true, componentsPerVector: 3, bytesPerComponent: 2 ),
@@ -76,7 +77,8 @@ extension HalfVertex: BasicInterleave, MetalInterleave {
     }
 }
 
-let test_v: SIMD3<Float16> = .zero
+@available(macOS 11.0, iOS 14.0, watchOS 7.0, tvOS 14.0, *)
+//let test_v: SIMD3<Float16> = .zero
 
 //struct HalfVertex2: Position, Normal {
 //    let position: SIMD3<UInt16>
@@ -93,11 +95,13 @@ extension Array where Element == MyVertex {
     }
 }
 
+@available(macOS 11.0, iOS 14.0, watchOS 7.0, tvOS 14.0, *)
 struct vertex_n3h_v3h {
     var position: SIMD3<Float16> // Metal
     var normal: SIMD3<Float16> // Metal
 }
 
+@available(macOS 11.0, iOS 14.0, watchOS 7.0, tvOS 14.0, *)
 extension vertex_n3h_v3h: MetalInterleave {
     public static var metalAttributes: [MetalAttribute] {
         [ VertexAttrib( .vertex, .half3, \Self.position ),
