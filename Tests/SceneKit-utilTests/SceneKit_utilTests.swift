@@ -61,8 +61,8 @@ extension VertexInfo {
 
 @available(macOS 11.0, iOS 14.0, watchOS 7.0, tvOS 14.0, *)
 struct HalfVertex {
-    let position: SIMD3<Float16>
     let normal: SIMD3<Float16>
+    let position: SIMD3<Float16>
 }
 
 @available(macOS 11.0, iOS 14.0, watchOS 7.0, tvOS 14.0, *)
@@ -77,7 +77,7 @@ extension HalfVertex: BasicInterleave, MetalInterleave {
     }
 }
 
-@available(macOS 11.0, iOS 14.0, watchOS 7.0, tvOS 14.0, *)
+//@available(macOS 11.0, iOS 14.0, watchOS 7.0, tvOS 14.0, *)
 //let test_v: SIMD3<Float16> = .zero
 
 //struct HalfVertex2: Position, Normal {
