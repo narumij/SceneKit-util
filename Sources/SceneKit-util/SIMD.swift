@@ -123,3 +123,6 @@ extension SCNVector4: SIMD {
     public typealias Scalar = SCNFloat
 }
 
+
+@available(iOS 14.0, tvOS 14.0, *)
+extension Float16: SIMDScalar { }
