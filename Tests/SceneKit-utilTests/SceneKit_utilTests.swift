@@ -16,6 +16,8 @@ enum Semantics {
 
 extension MyVertex {
         
+    @available(tvOS 13.0.0, *)
+    @available(iOS 13.0.0, *)
     static func semantic<T>(_ v: T,_ keyPath: PartialKeyPath<Self>) -> some Attribute where T: BasicVertexDetail {
         Attrb<T>(.vertex, keyPath)
     }
@@ -33,6 +35,8 @@ extension MyVertex: VertexInfo {
     
     
 //    static var vertexInfo: InterleaveInfo { [ .vertex: \.position, .texcoord: \.texcoord ] }
+    @available(tvOS 13.0.0, *)
+    @available(iOS 13.0.0, *)
     static let hogehoge //: [ SCNGeometrySource.Semantic: (,PartialKeyPath<MyVertex>) ]
     : [SCNGeometrySource.Semantic: Attribute]
     = [  .vertex: semantic( SIMD2<Float>.zero, \Self.position ),
@@ -242,6 +246,14 @@ final class SceneKit_utilTests: XCTestCase {
 
     }
     
+    func testFloat16() throws {
+        
+        if #available(iOS 14.0, tvOS 14.0, *) {
+            XCTAssertEqual( SIMD3<Float16>.usesFloatComponents, true )
+            XCTAssertEqual( SIMD3<Float16>.bytesPerComponent, 2)
+            XCTAssertEqual( SIMD3<Float16>.componentsPerVector, 3 )
+        }
+    }
 }
 
 
