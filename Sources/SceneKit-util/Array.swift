@@ -78,7 +78,7 @@ extension Array where Element: FixedWidthInteger {
     static func geometryElement(of elementBuffer: MTLBuffer,
                                 primitiveType: SCNGeometryPrimitiveType) -> SCNGeometryElement {
         
-        if #available(macOS 11.0, iOS 14.0, tvOS 14.0, *) {
+        if #available(macOS 13.0, iOS 14.0, tvOS 14.0, *) {
             
             return SCNGeometryElement(buffer: elementBuffer,
                                       primitiveType: primitiveType,
