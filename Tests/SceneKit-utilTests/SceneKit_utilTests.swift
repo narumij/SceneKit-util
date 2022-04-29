@@ -1,5 +1,6 @@
 import XCTest
 @testable import SceneKit_util
+@testable import SceneKit_util_float16
 import SceneKit
 
 struct MyVertex {

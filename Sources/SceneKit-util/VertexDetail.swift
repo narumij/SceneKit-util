@@ -56,20 +56,6 @@ extension SIMD where Scalar: BytesPerComponent
 
 // MARK: -
 
-@available(iOS 14.0, tvOS 14.0, *)
-extension Float16
-{
-    public static var vertexFormat: MTLVertexFormat
-    {
-        .half
-    }
-
-    public static var vertexFormatArray: [MTLVertexFormat]
-    {
-        [ .half2, .half3, .half4 ]
-    }
-}
-
 extension Float32
 {
     public static var vertexFormat: MTLVertexFormat
@@ -209,10 +195,4 @@ extension CGPoint:    BasicVertexDetail { }
 extension SCNVector3: BasicVertexDetail { }
 extension SCNVector4: BasicVertexDetail { }
 
-
-@available(iOS 14.0, tvOS 14.0, *)
-extension Float16: BasicVertexDetail & VertexScalar { }
-
-@available(iOS 14.0, tvOS 14.0, *)
-extension Float16: VertexFormat { }
 

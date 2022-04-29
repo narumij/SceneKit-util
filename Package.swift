@@ -27,9 +27,9 @@ let package = Package(
             dependencies: []),
         .target(
             name: "SceneKit-util-float16",
-            dependencies: []),
+            dependencies: ["SceneKit-util"]),
         .testTarget(
             name: "SceneKit-utilTests",
-            dependencies: ["SceneKit-util"]),
+            dependencies: ["SceneKit-util", "SceneKit-util-float16"]),
     ]
 )
